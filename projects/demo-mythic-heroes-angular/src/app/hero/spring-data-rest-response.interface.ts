@@ -1,8 +1,6 @@
-import { Hero } from './hero.interface';
-
-export interface SpringDataRestResponse {
+export interface SpringDataRestResponse<T> {
   _embedded: {
-    mythicHeroes: Hero[];
+    data: T[];
   };
   _links: {
     self: {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Hero } from '../hero.interface';
+import { MythicHero } from '../hero.interface';
 import { HeroService } from '../hero.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { HeroService } from '../hero.service';
 export class HeroDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
   errorMessage = '';
-  hero: Hero | undefined;
+  hero: MythicHero | undefined;
 
   constructor(private route: ActivatedRoute, private router: Router, private heroService: HeroService) {}
 

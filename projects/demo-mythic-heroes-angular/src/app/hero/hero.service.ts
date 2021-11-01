@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Hero } from './hero.interface';
+import { MythicHero } from './hero.interface';
 import { SpringDataRestResponse } from './spring-data-rest-response.interface';
 
 @Injectable({
@@ -13,9 +13,9 @@ export class HeroService {
 
   constructor(private http: HttpClient) {}
 
-  getHeroes(): Observable<SpringDataRestResponse> {
+  getHeroes(): Observable<SpringDataRestResponse<MythicHero>> {
     console.log('getHeroes(): Starting...');
-    return this.http.get<SpringDataRestResponse>(this.productUrl).pipe(
+    return this.http.get<SpringDataRestResponse<MythicHero>>(this.productUrl).pipe(
       tap((data) => console.log('All: ', JSON.stringify(data))),
       catchError((error) => this.handleError(<HttpErrorResponse>error))
     );
@@ -24,10 +24,10 @@ export class HeroService {
   // Get one product
   // Since we are working with a json file, we can only retrieve all products
   // So retrieve all products and then find the one we want using 'map'
-  getProduct(id: string): Observable<Hero | undefined> {
+  getProduct(id: string): Observable<MythicHero | undefined> {
     console.log('getProduct(): Starting...');
     return this.getHeroes().pipe(
-      map((products: SpringDataRestResponse) => products._embedded.mythicHeroes.find((p) => p.heroId == id))
+      map((products: SpringDataRestResponse<MythicHero>) => products._embedded.data.find((p) => p.heroId == id))
     );
   }
 

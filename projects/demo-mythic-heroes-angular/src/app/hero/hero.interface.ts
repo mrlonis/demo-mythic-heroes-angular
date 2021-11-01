@@ -1,4 +1,4 @@
-export interface Hero {
+export interface MythicHero {
   heroId: string;
   heroName: string;
   heroImageUrl: string;

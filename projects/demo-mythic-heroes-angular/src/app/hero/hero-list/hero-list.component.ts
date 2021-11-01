@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Hero } from '../hero.interface';
+import { MythicHero } from '../hero.interface';
 import { HeroService } from '../hero.service';
 
 @Component({
@@ -25,14 +25,14 @@ export class HeroListComponent implements OnInit, OnDestroy {
     this.filteredHeroes = this.performFilter(value);
   }
 
-  filteredHeroes: Hero[] = [];
-  heroes: Hero[] = [];
+  filteredHeroes: MythicHero[] = [];
+  heroes: MythicHero[] = [];
 
   constructor(private heroService: HeroService) {}
 
-  performFilter(filterBy: string): Hero[] {
+  performFilter(filterBy: string): MythicHero[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.heroes.filter((hero: Hero) => hero.heroName.toLocaleLowerCase().includes(filterBy));
+    return this.heroes.filter((hero: MythicHero) => hero.heroName.toLocaleLowerCase().includes(filterBy));
   }
 
   toggleImage(): void {
@@ -42,7 +42,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.heroService.getHeroes().subscribe({
       next: (springDataResponse) => {
-        this.heroes = springDataResponse._embedded.mythicHeroes;
+        this.heroes = springDataResponse._embedded.data;
         this.filteredHeroes = this.heroes;
       },
       error: (err) => (this.errorMessage = <string>err),
