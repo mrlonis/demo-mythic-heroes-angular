@@ -39,7 +39,14 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/junit
 
 # System Files
 .DS_Store
 Thumbs.db
+debug.log
+*.orig
+
+# Storybook
+/storybook-static/
+documentation.json
