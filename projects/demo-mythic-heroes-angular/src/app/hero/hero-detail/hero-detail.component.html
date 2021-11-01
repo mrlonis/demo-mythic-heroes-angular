@@ -11,20 +11,16 @@
           <div class="col-md-8">{{ hero.heroName }}</div>
         </div>
         <div class="row">
-          <div class="col-md-4">Type:</div>
-          <div class="col-md-8">{{ hero.typeId }}</div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">Class:</div>
-          <div class="col-md-8">{{ hero.classId }}</div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">Role:</div>
-          <div class="col-md-8">{{ hero.roleId }}</div>
-        </div>
-        <div class="row">
           <div class="col-md-4">Faction:</div>
-          <div class="col-md-8">{{ hero.factionId }}</div>
+          <div class="col-md-8">{{ hero.heroFaction.factionName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Rarity:</div>
+          <div class="col-md-8">{{ hero.heroRarity.rarityName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Type:</div>
+          <div class="col-md-8">{{ hero.heroType.typeName }}</div>
         </div>
       </div>
 

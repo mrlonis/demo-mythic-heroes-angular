@@ -41,8 +41,8 @@ export class HeroListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.heroService.getHeroes().subscribe({
-      next: (heroes) => {
-        this.heroes = heroes;
+      next: (springDataResponse) => {
+        this.heroes = springDataResponse._embedded.mythicHeroes;
         this.filteredHeroes = this.heroes;
       },
       error: (err) => (this.errorMessage = <string>err),

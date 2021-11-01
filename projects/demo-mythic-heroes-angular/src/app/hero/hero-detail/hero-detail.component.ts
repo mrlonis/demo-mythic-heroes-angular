@@ -17,13 +17,13 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('id');
+    console.log(param);
     if (param) {
-      const id = +param;
-      this.getProduct(id);
+      this.getProduct(param);
     }
   }
 
-  getProduct(id: number): void {
+  getProduct(id: string): void {
     this.heroService.getProduct(id).subscribe({
       next: (hero) => (this.hero = hero),
       error: (err) => (this.errorMessage = <string>err),

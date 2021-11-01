@@ -12,10 +12,11 @@ export class HeroDetailGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const id = Number(route.paramMap.get('id'));
-    if (isNaN(id) || id < 1) {
+    console.log(state);
+    const id = route.paramMap.get('id');
+    if (id == 'error') {
       alert('Invalid product Id');
-      this.router.navigate(['/products']);
+      this.router.navigate(['/products']).catch((error) => console.log(error));
       return false;
     }
     return true;

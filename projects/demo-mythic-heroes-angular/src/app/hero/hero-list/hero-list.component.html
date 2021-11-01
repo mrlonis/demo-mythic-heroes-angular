@@ -22,10 +22,9 @@
               <button class="btn btn-primary" (click)="toggleImage()">{{ showImage ? 'Hide' : 'Show' }} Icon</button>
             </th>
             <th>Name</th>
-            <th>Type</th>
-            <th>Class</th>
-            <th>Role</th>
             <th>Faction</th>
+            <th>Rarity</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
@@ -44,10 +43,9 @@
                 {{ hero.heroName }}
               </a>
             </td>
-            <td>{{ hero.typeId }}</td>
-            <td>{{ hero.classId }}</td>
-            <td>{{ hero.roleId }}</td>
-            <td>{{ hero.factionId }}</td>
+            <td>{{ hero.heroFaction.factionName }}</td>
+            <td>{{ hero.heroRarity.rarityName }}</td>
+            <td>{{ hero.heroType.typeName }}</td>
           </tr>
         </tbody>
       </table>
