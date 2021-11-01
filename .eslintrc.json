@@ -29,13 +29,13 @@
         "linebreak-style": "off",
         "new-parens": "off",
         "newline-per-chained-call": "off",
-        "no-extra-semi": "off",
-        "no-irregular-whitespace": "off",
-        "no-trailing-spaces": "off",
+        "no-extra-semi": "error",
+        "no-irregular-whitespace": "error",
+        "no-trailing-spaces": "error",
         "space-in-parens": ["off", "never"],
         "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
         "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
-        "import/no-unresolved": "off",
+        "import/no-unresolved": "error",
         "import/order": "error",
         "prettier/prettier": ["error", { "singleQuote": true, "printWidth": 125, "tabWidth": 2 }]
       }
@@ -44,7 +44,7 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": { "@angular-eslint/template/eqeqeq": "off" }
+      "rules": { "@angular-eslint/template/eqeqeq": "error" }
     },
     // NOTE: WE ARE NOT APPLYING @ANGULAR-ESLINT/TEMPLATE IN THIS OVERRIDE, ONLY PRETTIER
     {
