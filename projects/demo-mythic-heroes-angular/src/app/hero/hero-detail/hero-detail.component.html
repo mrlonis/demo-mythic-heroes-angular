@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header">
+    {{ pageTitle + ': ' + hero?.heroName }}
+  </div>
+
+  <div class="card-body" *ngIf="hero">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4">Name:</div>
+          <div class="col-md-8">{{ hero.heroName }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Type:</div>
+          <div class="col-md-8">{{ hero.typeId }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Class:</div>
+          <div class="col-md-8">{{ hero.classId }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Role:</div>
+          <div class="col-md-8">{{ hero.roleId }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">Faction:</div>
+          <div class="col-md-8">{{ hero.factionId }}</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <img
+          class="center-block img-responsive"
+          [style.width.px]="200"
+          [style.margin.px]="2"
+          [src]="hero.heroImageUrl"
+          [title]="hero.heroName"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <button class="btn btn-outline-secondary" style="width: 80px" (click)="onBack()">
+      <i class="fa fa-chevron-left"></i> Back
+    </button>
+  </div>
+</div>

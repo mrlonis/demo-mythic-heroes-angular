@@ -19,7 +19,7 @@ describe('AppComponent', () => {
   it(`should have as title 'demo-mythic-heroes-angular'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('demo-mythic-heroes-angular');
+    expect(app.pageTitle).toEqual('demo-mythic-heroes-angular');
   });
 
   it('should render title', () => {
