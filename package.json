@@ -26,6 +26,8 @@
     "@angular/platform-browser-dynamic": "^12.2.12",
     "@angular/router": "^12.2.12",
     "bootstrap": "^4.6.1",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -44,11 +46,12 @@
     "@types/node": "^14.17.32",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
+    "ajv": "^6.9.1",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "jasmine-core": "^3.8.0",
+    "jasmine-core": "^3.10.1",
     "karma": "^6.3.6",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.3",
@@ -69,5 +72,23 @@
       "prettier --write",
       "ng-lint-staged lint --fix --"
     ]
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mrlonis/demo-mythic-heroes-angular"
+  },
+  "keywords": [
+    "Mythic",
+    "Heroes",
+    "Demo",
+    "Angular"
+  ],
+  "author": "Matthew Lonis",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/mrlonis/demo-mythic-heroes-angular/issues"
+  },
+  "homepage": "https://github.com/mrlonis/demo-mythic-heroes-angular#readme"
 }
