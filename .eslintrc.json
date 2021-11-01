@@ -1,0 +1,60 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*", "ng-lint-staged.js"],
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:@angular-eslint/recommended--extra",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "plugin:prettier/recommended"
+      ],
+      "plugins": [],
+      "rules": {
+        "arrow-parens": ["off", "always"],
+        "brace-style": ["off", "off"],
+        "linebreak-style": "off",
+        "new-parens": "off",
+        "newline-per-chained-call": "off",
+        "no-extra-semi": "off",
+        "no-irregular-whitespace": "off",
+        "no-trailing-spaces": "off",
+        "space-in-parens": ["off", "never"],
+        "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
+        "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
+        "import/no-unresolved": "off",
+        "import/order": "error",
+        "prettier/prettier": ["error", { "singleQuote": true, "printWidth": 125, "tabWidth": 2 }]
+      }
+    },
+    // NOTE: WE ARE NOT APPLYING PRETTIER IN THIS OVERRIDE, ONLY @ANGULAR-ESLINT/TEMPLATE
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": { "@angular-eslint/template/eqeqeq": "off" }
+    },
+    // NOTE: WE ARE NOT APPLYING @ANGULAR-ESLINT/TEMPLATE IN THIS OVERRIDE, ONLY PRETTIER
+    {
+      "files": ["*.html"],
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "extends": ["plugin:prettier/recommended"],
+      "rules": {
+        // NOTE: WE ARE OVERRIDING THE DEFAULT CONFIG TO ALWAYS SET THE PARSER TO ANGULAR (SEE BELOW)
+        "prettier/prettier": ["error", { "parser": "angular", "printWidth": 125, "tabWidth": 2 }]
+      }
+    }
+  ]
+}
