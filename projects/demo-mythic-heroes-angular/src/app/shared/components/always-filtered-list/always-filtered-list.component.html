@@ -1,6 +1,6 @@
 <div class="always-filtered-list-container">
   <div class="filtercontain">
-    <div class="field-grouping" *ngIf="filters != null">
+    <div class="field-grouping" *ngIf="filters !== null">
       <ng-container *ngFor="let filtergroup of filters; last as isLast">
         <div class="form-field-container" *ngFor="let filter of filtergroup">
           <label class="form-field-label">
