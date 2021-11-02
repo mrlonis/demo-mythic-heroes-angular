@@ -1,0 +1,61 @@
+.filterable-list-container {
+  padding: 1.5rem;
+  box-sizing: border-box;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 20px 0px;
+  grid-template-areas:
+    '.'
+    '.';
+}
+
+h2,
+#search-form {
+  display: inline-block;
+}
+
+#search-form {
+  float: right;
+  .form-field-container {
+    margin-right: 0.5rem;
+  }
+  button {
+    vertical-align: middle;
+  }
+  mat-button-toggle {
+    margin-left: 0.5rem;
+    height: 36px;
+    width: 36px;
+    font-size: 36px;
+    vertical-align: middle;
+  }
+}
+
+.small-mat-icon {
+  font-size: 20px;
+}
+
+.listcomp {
+  margin-top: 2rem;
+}
+
+.mat-column-end-symbol {
+  width: 20px;
+  text-align: center;
+  line-height: 100%;
+}
+
+.field-grouping {
+  display: flex;
+}
+
+.field-grouping * {
+  margin-right: 0.5rem;
+}
+
+.filtertext {
+  margin-bottom: 0;
+}

@@ -1,0 +1,58 @@
+h2 {
+  display: inline-block;
+}
+
+.small-mat-icon {
+  font-size: 20px;
+}
+
+.listcomp {
+  margin-top: 2rem;
+}
+
+.mat-column-end-symbol {
+  width: 20px;
+  text-align: center;
+  line-height: 100%;
+}
+
+.field-grouping {
+  display: flex;
+}
+
+.form-field-container {
+  margin: 0.5rem;
+  flex: 1;
+}
+
+.always-filtered-list-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  gap: 20px 0px;
+  grid-template-areas:
+    '.'
+    '.'
+    '.';
+
+  .filtercontain {
+    background: #fafafa;
+    border: 1px solid rgba(229, 229, 229, 0.58);
+    border-radius: 5px;
+    padding: 0.5rem;
+    overflow: scroll;
+  }
+}
+
+.tight {
+  // display: inline-block;
+  float: right;
+}
+.divider {
+  margin: 1rem;
+}
+
+.filtertext {
+  margin-bottom: 0;
+}

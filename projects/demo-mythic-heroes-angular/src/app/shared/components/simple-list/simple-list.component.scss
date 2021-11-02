@@ -1,0 +1,29 @@
+.mrlonis-table {
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-end-symbol {
+  width: 32px;
+  text-align: center;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #f8fbf5;
+  border: 0.5px solid #569100;
+}
+
+.bundle-paginator {
+  position: sticky;
+  bottom: 0;
+}

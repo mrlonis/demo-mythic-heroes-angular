@@ -1,0 +1,122 @@
+.background {
+  background-color: #f7f7f9;
+  width: 100%;
+  height: 100%;
+}
+.pagetitle {
+  height: 30px;
+  line-height: 30px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 25px;
+  color: #565656;
+}
+.pagedesc {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #565656;
+}
+.foreground-stripe {
+  margin: auto;
+  width: 50%;
+  padding-top: 100px;
+}
+.maticon {
+  vertical-align: middle;
+}
+.backbutton {
+  // vertical-align:middle;
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 50px;
+  line-height: 50px;
+}
+.central-image-container {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.central-image {
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.add-practice-btn {
+  float: right;
+}
+
+.popup-btn-container {
+  height: 32px;
+}
+
+.practice-elem {
+  cursor: pointer;
+  height: 120px;
+  background-color: white;
+  margin-top: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(229, 229, 229, 0.58);
+  // box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.practice-name {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.bodygrid {
+  display: grid;
+  grid-template-rows: 35px 35px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+label {
+  grid-row: 1;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 35px;
+}
+.gridinfo {
+  grid-row: 2;
+  line-height: 100%;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.subheader {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10px;
+
+  white-space: pre-wrap;
+  letter-spacing: 0.09em;
+  color: #909090;
+}
+
+.field-grouping {
+  display: flex;
+}
+
+.field-grouping .form-field-container {
+  margin-right: 0.5rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+.filtertext {
+  margin-bottom: 0;
+}

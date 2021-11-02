@@ -3,7 +3,19 @@ export interface SpringDataRestResponse<T> {
     data: T[];
   };
   _links: {
+    first?: {
+      href: string;
+    };
+    prev?: {
+      href: string;
+    };
     self: {
+      href: string;
+    };
+    next?: {
+      href: string;
+    };
+    last?: {
       href: string;
     };
     profile: {

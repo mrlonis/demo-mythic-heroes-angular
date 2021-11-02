@@ -1,0 +1,67 @@
+<div class="background">
+  <div [routerLink]="['/customers']" class="backbutton" *ngIf="backtext" style="cursor: pointer">
+    <mat-icon class="maticon">arrow_back</mat-icon>{{ backtext }}
+  </div>
+  <div class="foreground-stripe">
+    <div class="central-image-container">
+      <img [src]="imageUrl" class="central-image" />
+    </div>
+    <h3 class="subheader">{{ pagesubtitle }}</h3>
+    <div class="pagetitle">{{ pageTitle }}</div>
+    <div class="pagedesc">{{ pagedesc }}</div>
+    <div class="popup-btn-container" *ngIf="this.data.appropriateModal !== null">
+      <a mat-flat-button color="accent" class="add-practice-btn" (click)="openDialog()">+ {{ addModalText }}</a>
+    </div>
+    <div class="field-grouping" *ngIf="filters !== null">
+      <div class="form-field-container" *ngFor="let filter of filters">
+        <label class="form-field-label"
+          ><h5 class="filtertext">{{ filter.name }}</h5></label
+        >
+        <mat-form-field appearance="outline" *ngIf="filter.type === 'text'">
+          <input
+            matInput
+            [ngModel]="getstring(filter.key)"
+            (ngModelChange)="setfilter(filter, $event)"
+            [disabled]="filter.disabled()"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="filter.type === 'dropdown'">
+          <mat-select
+            placeholder="All"
+            [ngModel]="getstring(filter.key)"
+            (ngModelChange)="setfilter(filter, $event)"
+            [disabled]="filter.disabled()"
+          >
+            <mat-option></mat-option>
+            <mat-option *ngFor="let group of filter.options | keyvalue" [value]="group.value">
+              {{ group.key }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mrlonis-relative-date-picker
+          *ngIf="filter.type === 'relativedate'"
+          [defaultCreationDate]="getreldate(filter.key)?.option ?? ''"
+          [defaultDateRange]="getreldate(filter.key)?.range ?? null"
+          (datesSelected)="setfilter(filter, $event)"
+        ></mrlonis-relative-date-picker>
+      </div>
+    </div>
+    <mrlonis-loading-indicator *ngIf="isLoadingResults"></mrlonis-loading-indicator>
+    <div *ngFor="let datum of dataSource" (click)="data.click(router, route, datum.id)" class="practice-elem">
+      <div class="practice-name">{{ datum.name }}</div>
+      <div class="bodygrid">
+        <ng-container *ngFor="let column of data.displayedColumns">
+          <label>{{ data.columnInfo[column].name }}</label>
+          <div class="gridinfo">
+            <ng-container *ngIf="isString(datum[column])">
+              {{ datum[column] }}
+            </ng-container>
+            <ng-container *ngIf="!isString(datum[column])">
+              {{ toObservable(datum[column]) | async }}
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="always-filtered-list-container">
+  <div class="filtercontain">
+    <div class="field-grouping" *ngIf="filters != null">
+      <ng-container *ngFor="let filtergroup of filters; last as isLast">
+        <div class="form-field-container" *ngFor="let filter of filtergroup">
+          <label class="form-field-label">
+            <h5 class="filtertext">{{ filter.name }}</h5>
+          </label>
+          <mat-form-field appearance="outline" *ngIf="filter.type === 'text'">
+            <input
+              matInput
+              [ngModel]="getstring(filter.key)"
+              (ngModelChange)="setfilter(filter, $event)"
+              [disabled]="filter.disabled()"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" *ngIf="filter.type === 'dropdown'">
+            <mat-select
+              placeholder="All"
+              [ngModel]="getstring(filter.key)"
+              (ngModelChange)="setfilter(filter, $event)"
+              [disabled]="filter.disabled()"
+            >
+              <mat-option></mat-option>
+              <mat-option *ngFor="let group of filter.options | keyvalue" [value]="group.value">
+                {{ group.key }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mrlonis-relative-date-picker
+            *ngIf="filter.type === 'relativedate'"
+            [defaultCreationDate]="getreldate(filter.key)?.option ?? ''"
+            [defaultDateRange]="getreldate(filter.key)?.range ?? null"
+            (datesSelected)="setfilter(filter, $event)"
+          ></mrlonis-relative-date-picker>
+        </div>
+        <mat-divider *ngIf="!isLast" [vertical]="true" class="divider"></mat-divider>
+      </ng-container>
+    </div>
+    <div class="tight">
+      <button mat-button (click)="clearFilters()" color="accent">Clear Filters</button>
+      <button mat-flat-button color="accent" class="confirm-edits" (click)="applyFilters()">Apply Filter</button>
+    </div>
+  </div>
+
+  <h2>{{ data.total }} {{ pageTitle }}</h2>
+
+  <mrlonis-simple-list
+    [data]="data"
+    (contentRefresh)="contentRefresh.emit()"
+    [richColumnList]="richColumnQuery.toArray()"
+    [richRowList]="richRowQuery.toArray()"
+    [additionalRows]="additionalRows"
+  ></mrlonis-simple-list>
+</div>

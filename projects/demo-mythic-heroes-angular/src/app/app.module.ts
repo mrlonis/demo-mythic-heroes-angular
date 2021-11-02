@@ -5,8 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeroModule } from './hero/hero.module';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { HeroModule } from './features/hero/hero.module';
+import { WelcomeComponent } from './features/welcome/welcome.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
     HeroModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
