@@ -1,0 +1,69 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+
+/// Defines utility classes for applying colors
+/// Supported palettes: primary, accent
+/// Available classes:
+/// {palette}-background: sets background color as default color for that palette
+/// {palette}-background-dark: Darker background version
+/// {palette}-background.contrast-text: Applies the contrast text color
+/// {palette}-background-dark.contrast-text: Applies the contrast text color
+/// {palette}-text: sets text color as default color for that palette
+/// {palette}-text-dark: Darker text color version
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  // backgrounds
+  .primary-background-dark {
+    background-color: mat.get-color-from-palette($primary, 'darker');
+    &.contrast-text {
+      color: mat.get-color-from-palette($primary, 'darker-contrast');
+    }
+  }
+
+  .primary-background {
+    background-color: mat.get-color-from-palette($primary, 'default');
+    &.contrast-text {
+      color: mat.get-color-from-palette($primary, 'default-contrast');
+    }
+  }
+
+  .accent-background-dark {
+    background-color: mat.get-color-from-palette($accent, 'darker');
+    &.contrast-text {
+      color: mat.get-color-from-palette($accent, 'darker-contrast');
+    }
+  }
+
+  .accent-background {
+    background-color: mat.get-color-from-palette($accent, 'default');
+    &.contrast-text {
+      color: mat.get-color-from-palette($accent, 'default-contrast');
+    }
+  }
+
+  // foregrounds
+  @include foreground($theme);
+}
+
+@mixin foreground($theme, $selector: '') {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+
+  // foregrounds
+  #{$selector}.primary-text {
+    color: mat.get-color-from-palette($primary, default);
+  }
+  #{$selector}.primary-text-dark {
+    color: mat.get-color-from-palette($primary, darker);
+  }
+
+  #{$selector}.accent-text {
+    color: mat.get-color-from-palette($accent, default);
+  }
+  #{$selector}.accent-text-dark {
+    color: mat.get-color-from-palette($accent, darker);
+  }
+}

@@ -46,7 +46,7 @@
         ></mrlonis-relative-date-picker>
       </div>
     </div>
-    <mrlonis-loading-indicator *ngIf="isLoadingResults"></mrlonis-loading-indicator>
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     <div *ngFor="let datum of dataSource" (click)="data.click(router, route, datum.id)" class="practice-elem">
       <div class="practice-name">{{ datum.name }}</div>
       <div class="bodygrid">

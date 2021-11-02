@@ -1,0 +1,10 @@
+$modal-width: 540px;
+.modal-container {
+  width: $modal-width;
+}
+
+.mat-dialog-content {
+  .mat-divider {
+    margin-top: 1rem;
+  }
+}

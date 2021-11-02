@@ -7,14 +7,14 @@
             <ng-template mat-tab-label>
               {{ section.tabName }}
               <mat-icon
-                *ngIf="section.toggleable && section.side == 'left'"
+                *ngIf="section.toggleable && section.side === 'left'"
                 color="accent"
                 (click)="$event.stopPropagation(); section.side = 'right'"
                 class="mat-icon"
                 >open_in_new</mat-icon
               >
               <mat-icon
-                *ngIf="section.toggleable && section.side == 'right'"
+                *ngIf="section.toggleable && section.side === 'right'"
                 color="accent"
                 (click)="$event.stopPropagation(); section.side = 'left'"
                 class="mat-icon"
@@ -28,7 +28,7 @@
                 >close</mat-icon
               >
             </ng-template>
-            <mrlonis-loading-indicator *ngIf="disabled"></mrlonis-loading-indicator>
+            <mat-spinner *ngIf="disabled"></mat-spinner>
             <div style="height: 100%">
               <ng-template *ngIf="!disabled" [ngTemplateOutlet]="section.templateRef"></ng-template>
             </div>

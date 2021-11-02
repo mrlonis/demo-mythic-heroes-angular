@@ -1,0 +1,187 @@
+@use 'sass:map';
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@use '~@angular/material' as mat;
+$zotec-brand: (
+  50: #e1eaf2,
+  100: #b3cadf,
+  200: #80a6c9,
+  300: #4d82b3,
+  400: #2768a3,
+  500: #014d93,
+  // design-specified style 1
+  600: #01468b,
+  700: #013d80,
+  800: #013476,
+  900: #003476,
+  // design-specified style 2
+  A100: #3eadff,
+  A200: #0193ff,
+  A400: #0085e7,
+  A700: #007cd7,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #fafafa,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$zotec-brand-accent: (
+  50: #f0f7e9,
+  100: #d8eac8,
+  200: #bbf570,
+  300: #a5cf7e,
+  400: #91c462,
+  500: #7eba46,
+  // design-specified style 1
+  600: #76b33f,
+  700: #6bab37,
+  800: #61a32f,
+  900: #569100,
+  // design-specified style 2
+  A100: #ccff8e,
+  A200: #b0ff51,
+  A400: #a4ff37,
+  A700: #9dff28,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+// adapted from angular material's gray palette
+$dark-primary-text: black;
+$light-primary-text: white;
+$zotec-gray: (
+  50: #ffffff,
+  100: #fafafa,
+  200: #e5e5e5,
+  300: #e0e0e0,
+  400: #bdbdbd,
+  500: #909090,
+  600: #565656,
+  700: #333333,
+  800: #212121,
+  // extra
+  900: #000000,
+  A100: #ffffff,
+  A200: #eeeeee,
+  A400: #bdbdbd,
+  A700: #616161,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$zotec-default-app-primary: mat.define-palette($zotec-brand, $darker: 900);
+$zotec-default-app-accent: mat.define-palette($zotec-brand-accent, $darker: 900);
+
+// The warn palette is optional (defaults to red).
+$zotec-default-app-warn: mat.define-palette(mat.$red-palette);
+$zotec-default-app-gray: mat.define-palette($zotec-gray);
+
+$zotec-default-typography: mat.define-typography-config(
+  $font-family: 'Open Sans, sans-serif',
+  $headline: mat.define-typography-level(30px, 41px, 400),
+  $title: mat.define-typography-level(20px, 32px, 400),
+  $subheading-2: mat.define-typography-level(18px, 24px, 400),
+  $subheading-1: mat.define-typography-level(13px, 18px, 600),
+  // Open sans doesnt have 500 so upgrade those styles to 600
+  $body-2: mat.define-typography-level(14px, 24px, 600),
+  $button: mat.define-typography-level(13px, 13px, 600),
+);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$zotec-default-app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $zotec-default-app-primary,
+      accent: $zotec-default-app-accent,
+      warn: $zotec-default-app-warn,
+    ),
+    typography: $zotec-default-typography,
+  )
+);
+
+// customize background colors
+$background: map.get($zotec-default-app-theme, color, background);
+$background: map.merge(
+  $background,
+  (
+    background: mat.get-color-from-palette($zotec-default-app-gray, 200, 0.58),
+    card: #fcfcfc,
+  )
+);
+// customize foreground colors
+$foreground: map.get($zotec-default-app-theme, color, foreground);
+$foreground: map.merge(
+  $foreground,
+  (
+    text: mat.get-color-from-palette($zotec-default-app-gray, '200-contrast'),
+  )
+);
+
+$zotec-default-app-theme: map.deep-merge(
+  $zotec-default-app-theme,
+  (
+    background: $background,
+    foreground: $foreground,
+    color: (
+      background: $background,
+      foreground: $foreground,
+      gray: $zotec-default-app-gray,
+    ),
+  )
+);
+
+// define variables for these in case we ever want to customize them
+// components that need the theme or typography should import this file
+$zotec-ibc-coding-app-primary: $zotec-default-app-primary;
+$zotec-ibc-coding-app-accent: $zotec-default-app-accent;
+$zotec-ibc-coding-app-warn: $zotec-default-app-warn;
+$zotec-ibc-coding-app-theme: $zotec-default-app-theme;
+$zotec-ibc-coding-typography: $zotec-default-typography;

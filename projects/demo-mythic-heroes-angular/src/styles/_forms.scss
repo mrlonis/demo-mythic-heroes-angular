@@ -1,0 +1,60 @@
+@use '~@angular/material' as mat;
+@use 'sass:map';
+
+@mixin all($config) {
+  $color: mat.get-color-config($config);
+  $accent: map.get($color, accent);
+  $primary: map.get($color, primary);
+  $background: map.get($color, background);
+  $foreground: map.get($color, foreground);
+  $gray: map.get($color, gray);
+
+  .form-field-container {
+    &.inline {
+      display: inline-block;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .mat-form-field-infix {
+      border-top: 0.1em solid transparent;
+    }
+
+    .mat-form-field-appearance-outline {
+      .mat-form-field-prefix,
+      .mat-form-field-suffix {
+        top: 0.5em;
+      }
+      .mat-form-field-outline {
+        background-color: white;
+      }
+      .mat-select-arrow-wrapper {
+        transform: none;
+      }
+    }
+  }
+
+  label,
+  .form-field-label {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.025em;
+    font-weight: normal;
+  }
+  label {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .form-field-label {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  p.form-field-label {
+    // for backward compatibility, but we shouldn't be using p tags for labels
+    margin-bottom: 4px;
+  }
+  mat-form-field.mat-form-field-appearance-fill.dark .mat-form-field-flex {
+    background-color: white;
+  }
+}

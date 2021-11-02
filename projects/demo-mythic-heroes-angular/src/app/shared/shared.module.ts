@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -27,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { AngularSplitModule } from 'angular-split';
 import {
   AlternativeListComponent,
   AlwaysFilteredListComponent,
@@ -34,11 +36,13 @@ import {
   FilterableListComponent,
   ListMenuDirective,
   ListMenuProviderDirective,
-  LoadingIndicatorComponent,
+  // LoadingIndicatorComponent,
   RelativeDatePickerComponent,
   RichColumnDirective,
   RichRowDirective,
   SimpleListComponent,
+  SplitTabGroupDirective,
+  SplittableTabsComponent,
 } from './components';
 
 @NgModule({
@@ -52,8 +56,10 @@ import {
     ListMenuProviderDirective,
     AlternativeListComponent,
     AlwaysFilteredListComponent,
-    LoadingIndicatorComponent,
+    // LoadingIndicatorComponent,
     RelativeDatePickerComponent,
+    SplitTabGroupDirective,
+    SplittableTabsComponent,
   ],
   imports: [
     // angular
@@ -61,6 +67,7 @@ import {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
 
     // material
     MatButtonToggleModule,
@@ -88,6 +95,7 @@ import {
     MatToolbarModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    AngularSplitModule,
   ],
   exports: [
     // angular
@@ -95,6 +103,7 @@ import {
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
 
     // material
     MatButtonToggleModule,
@@ -122,6 +131,8 @@ import {
     MatToolbarModule,
     MatSlideToggleModule,
     MatTooltipModule,
+
+    AngularSplitModule,
 
     // custom
     BundlePaginatorComponent,
@@ -133,8 +144,10 @@ import {
     ListMenuProviderDirective,
     AlternativeListComponent,
     AlwaysFilteredListComponent,
-    LoadingIndicatorComponent,
+    // LoadingIndicatorComponent,
     RelativeDatePickerComponent,
+    SplitTabGroupDirective,
+    SplittableTabsComponent,
   ],
 })
 export class SharedModule {}

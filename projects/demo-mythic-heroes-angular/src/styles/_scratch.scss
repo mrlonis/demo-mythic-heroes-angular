@@ -1,0 +1,12 @@
+@use '~@angular/material' as mat;
+@use 'sass:map';
+
+@mixin scratch($config) {
+  // collect here until we can split stuff out
+  $color: mat.get-color-config($config);
+  $accent: map.get($color, accent);
+  $primary: map.get($color, primary);
+  $background: map.get($color, background);
+  $foreground: map.get($color, foreground);
+  $gray: map.get($color, gray);
+}

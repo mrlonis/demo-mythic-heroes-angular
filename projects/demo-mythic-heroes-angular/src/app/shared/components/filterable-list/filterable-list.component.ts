@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MythicHero } from '../../../features/hero/hero.interface';
+import { MythicHero } from '../../hero.interface';
 import { RichColumnDirective, RichRowDirective, SimpleListComponentDataSource } from '../simple-list/simple-list.component';
 
 export function purifyDateRange(x: null | undefined | DateRange<Date>): undefined | DateRange<Date> {

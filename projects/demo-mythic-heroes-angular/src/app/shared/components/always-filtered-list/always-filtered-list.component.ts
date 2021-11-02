@@ -2,7 +2,7 @@ import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryL
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
-import { MythicHero } from '../../../features/hero/hero.interface';
+import { MythicHero } from '../../hero.interface';
 import { LocalStorageService } from '../../services';
 import { FilterChoice, FilterChoices, purifyDateAt } from '../filterable-list/filterable-list.component';
 import { RichColumnDirective, RichRowDirective, SimpleListComponentDataSource } from '../simple-list/simple-list.component';

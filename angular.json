@@ -36,7 +36,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "projects/demo-mythic-heroes-angular/src/styles.scss",
+              "projects/demo-mythic-heroes-angular/src/styles/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
@@ -106,7 +106,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "projects/demo-mythic-heroes-angular/src/styles.scss",
+              "projects/demo-mythic-heroes-angular/src/styles/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []

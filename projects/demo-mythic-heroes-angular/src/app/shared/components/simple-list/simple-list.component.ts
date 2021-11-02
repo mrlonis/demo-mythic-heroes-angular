@@ -18,8 +18,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, merge, Observable, ReplaySubject, Subject, timer } from 'rxjs';
 import { distinctUntilChanged, mapTo, mergeMap, share, startWith, takeUntil, tap, throttleTime } from 'rxjs/operators';
-import { MythicHero } from '../../../features/hero/hero.interface';
-import { SpringDataRestResponse } from '../../../features/hero/spring-data-rest-response.interface';
+import { MythicHero } from '../../hero.interface';
+import { SpringDataRestResponse } from '../../spring-data-rest-response.interface';
 
 @Directive({
   selector: '[mrlonisListMenu]',
@@ -269,7 +269,7 @@ export class SimpleListComponent<
         this.bundle = response;
         const locations = response._embedded.data.map((entry) => {
           const ret: ColumnType & { id?: string } = this.data.mapEntry(entry);
-          ret.id = entry.heroId;
+          ret.id = entry.id;
           return {
             customRow: false,
             item: ret,

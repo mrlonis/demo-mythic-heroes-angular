@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MythicHero } from './hero.interface';
-import { SpringDataRestResponse } from './spring-data-rest-response.interface';
+import { MythicHero } from '../../shared/hero.interface';
+import { SpringDataRestResponse } from '../../shared/spring-data-rest-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class HeroService {
   getProduct(id: string): Observable<MythicHero | undefined> {
     console.log('getProduct(): Starting...');
     return this.getHeroes().pipe(
-      map((products: SpringDataRestResponse<MythicHero>) => products._embedded.data.find((p) => p.heroId == id))
+      map((products: SpringDataRestResponse<MythicHero>) => products._embedded.data.find((p) => p.id == id))
     );
   }
 

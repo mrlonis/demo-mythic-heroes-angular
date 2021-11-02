@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { mixinDisabled, mixinInitialized, ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { SpringDataRestResponse } from '../../../features/hero/spring-data-rest-response.interface';
+import { SpringDataRestResponse } from '../../spring-data-rest-response.interface';
 
 /**
  * Change event object that is emitted when the user selects a

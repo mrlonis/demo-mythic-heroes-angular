@@ -1,0 +1,31 @@
+@use '~@angular/material' as mat;
+@use 'sass:map';
+
+@mixin all($config) {
+  // collect here until we can split stuff out
+  $color: mat.get-color-config($config);
+  $accent: map.get($color, accent);
+  $primary: map.get($color, primary);
+  $background: map.get($color, background);
+  $foreground: map.get($color, foreground);
+  $gray: map.get($color, gray);
+
+  .detail-page-header {
+    background: mat.get-color-from-palette($background, card);
+    //min-height: 3rem;
+    border-bottom: 1px solid mat.get-color-from-palette($gray, 200, 0.58);
+    padding: 1rem;
+    padding-bottom: 1px; // can't be zero or we get gap between header and tabs
+  }
+
+  .detail-page-content {
+    padding: 1rem;
+  }
+
+  .mat-card.zotec-card {
+    margin: 1rem auto;
+    .mat-card-header-text {
+      margin-left: 0;
+    }
+  }
+}

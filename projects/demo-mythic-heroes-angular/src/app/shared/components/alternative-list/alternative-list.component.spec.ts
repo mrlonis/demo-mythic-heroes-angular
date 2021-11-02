@@ -4,6 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { MythicHero } from '../../hero.interface';
 import { AlternativeListComponent, AlternativeListComponentDataSource } from './alternative-list.component';
 
 class ExampleAlternativeListDataSource extends AlternativeListComponentDataSource<MythicHero, { a: string; b: string }> {

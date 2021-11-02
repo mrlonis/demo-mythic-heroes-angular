@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { MythicHero } from '../../../features/hero/hero.interface';
+import { MythicHero } from '../../hero.interface';
 import { FilterChoice, FilterChoices, purifyDateAt } from '../filterable-list/filterable-list.component';
 
 export abstract class AlternativeListComponentDataSource<
@@ -145,7 +145,7 @@ export class AlternativeListComponent<
       this.isLoadingResults = false;
       const locations = response.map((entry) => {
         const ret: ColumnType & { name: string; id?: string } = this.data.mapEntry(entry);
-        ret.id = entry.heroId;
+        ret.id = entry.id;
         return ret as ColumnType & { name: string; id: string };
       });
       this.dataSource = locations;

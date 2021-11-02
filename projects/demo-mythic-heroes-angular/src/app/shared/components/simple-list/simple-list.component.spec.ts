@@ -4,8 +4,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { MythicHero } from '../../../features/hero/hero.interface';
-import { SpringDataRestResponse } from '../../../features/hero/spring-data-rest-response.interface';
+import { MythicHero } from '../../hero.interface';
+import { SpringDataRestResponse } from '../../spring-data-rest-response.interface';
 import { SimpleListComponent, SimpleListComponentDataSource } from './simple-list.component';
 
 class ExampleSimpleListDataSource extends SimpleListComponentDataSource<MythicHero, { a: string; b: string }> {

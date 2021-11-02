@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MythicHero } from '../hero.interface';
+import { MythicHero } from '../../../shared/hero.interface';
 import { HeroService } from '../hero.service';
 
 @Component({
