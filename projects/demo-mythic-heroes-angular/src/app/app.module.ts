@@ -4,8 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { config as appConfig } from './core/app-config';
 import { HeroModule } from './features/hero/hero.module';
 import { WelcomeComponent } from './features/welcome/welcome.component';
+import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared/services/api/base';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,14 @@ import { WelcomeComponent } from './features/welcome/welcome.component';
     HeroModule,
     // SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: API_CONFIG_TOKEN,
+      useValue: {
+        apiUrl: appConfig.apiUrl,
+      } as ApiConfigProvider,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

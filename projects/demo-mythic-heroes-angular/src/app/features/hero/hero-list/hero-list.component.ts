@@ -2,17 +2,17 @@ import { ComponentType } from '@angular/cdk/portal';
 import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AlwaysFilteredListComponentDataSource, FilterChoice, FilterChoices } from '../../../shared/components';
-import { MythicHero } from '../../../shared/hero.interface';
-import { SpringDataRestResponse } from '../../../shared/spring-data-rest-response.interface';
-import { HeroService } from '../hero.service';
+import { HeroService, MythicHeroesAggressiveCache } from '../../../shared/services';
+import { BaseResource, MythicHero, SpringDataRestResponse } from '../../../shared/services/api/interfaces';
 
 export type MythicHeroDisplay = {
   name: string;
-  faction: string;
-  rarity: string;
-  type: string;
+  faction: Observable<string>;
+  rarity: Observable<string>;
+  type: Observable<string>;
 };
 
 export class QueueDataSource extends AlwaysFilteredListComponentDataSource<MythicHero, MythicHeroDisplay> {
@@ -41,7 +41,7 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
   rarityFilter?: FilterChoice<'dropdown'>;
   typeFilter?: FilterChoice<'dropdown'>;
 
-  constructor(private heroService: HeroService, public route: ActivatedRoute) {
+  constructor(private heroService: HeroService, public route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {
     super();
     route.params.subscribe((params) => {
       if (params['queueType'] != undefined) {
@@ -59,8 +59,13 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
           : 'Coding Queue';
       }
     });
-    this.heroService.getHeroes().subscribe((heroes) => {
-      this.heroes = heroes._embedded.data;
+    forkJoin({
+      heroes: this.cache.getAll('mythicHero'),
+      factions: this.cache.getAll('faction'),
+      rarities: this.cache.getAll('rarity'),
+      types: this.cache.getAll('type'),
+    }).subscribe((x) => {
+      this.heroes = x.heroes;
 
       const update = (): boolean => {
         this.nameFilter = {
@@ -83,7 +88,7 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
           name: 'Filter by Faction',
           key: 'faction',
           type: 'dropdown',
-          options: resource_to_dictionary(this.heroes),
+          options: resource_to_dictionary(x.factions),
           disabled: () => {
             if (this.heroes == undefined || this.heroes.length == 0) {
               return true;
@@ -103,7 +108,7 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
           name: 'Rarity',
           key: 'rarity',
           type: 'dropdown',
-          options: resource_to_dictionary(this.heroes),
+          options: resource_to_dictionary(x.rarities),
           disabled: () => {
             return false;
           },
@@ -119,6 +124,7 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
           name: 'Type',
           key: 'type',
           type: 'dropdown',
+          options: resource_to_dictionary(x.types),
           disabled: () => {
             return false;
           },
@@ -142,15 +148,17 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getCollection(index?: number, size?: number, params?: HttpParams): Observable<SpringDataRestResponse<MythicHero>> {
-    return this.heroService.getHeroes();
+    return this.heroService.getCollection(index, size, params);
   }
 
   mapEntry(hero: MythicHero): MythicHeroDisplay {
     return {
       name: hero.name,
-      faction: hero.faction.name,
-      rarity: hero.rarity.name,
-      type: hero.type.name,
+      faction: this.cache
+        .getBy('faction', new HttpParams().set('id', hero.factionId))
+        .pipe(map((response) => response.name)),
+      rarity: this.cache.getBy('rarity', new HttpParams().set('id', hero.rarityId)).pipe(map((response) => response.name)),
+      type: this.cache.getBy('type', new HttpParams().set('id', hero.typeId)).pipe(map((response) => response.name)),
     };
   }
 }
@@ -162,12 +170,12 @@ export class QueueDataSource extends AlwaysFilteredListComponentDataSource<Mythi
 })
 export class HeroListComponent {
   dat: QueueDataSource;
-  constructor(heroService: HeroService, route: ActivatedRoute) {
-    this.dat = new QueueDataSource(heroService, route);
+  constructor(heroService: HeroService, route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {
+    this.dat = new QueueDataSource(heroService, route, cache);
   }
 }
 
-export function resource_to_dictionary(resources: Array<MythicHero>): {
+export function resource_to_dictionary(resources: Array<BaseResource>): {
   [key: string]: string;
 } {
   const choices: { [key: string]: string } = {};

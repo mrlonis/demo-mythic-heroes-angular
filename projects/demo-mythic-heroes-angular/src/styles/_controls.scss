@@ -16,10 +16,10 @@
 @use './tabs';
 @use './typography';
 
-/// Applies all custom shared zotec styles
+/// Applies all custom shared mrlonis styles
 /// @param {Map} $theme The theme map returned from `define-light-theme` or
 ///     `define-dark-theme`.
-@mixin zotec-shared-all($config) {
+@mixin mrlonis-shared-all($config) {
   @include color_utils.color($config);
   @include layout.all($config);
   @include tabs.all($config);

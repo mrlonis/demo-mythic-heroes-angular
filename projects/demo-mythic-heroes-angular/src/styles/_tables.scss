@@ -4,7 +4,7 @@
     z-index: 1000;
   }
 
-  tr.mat-header-row.zotec-table-header {
+  tr.mat-header-row.mrlonis-table-header {
     height: 28px;
     text-transform: uppercase;
     color: #919191;
@@ -18,11 +18,11 @@
     border-bottom-color: #e0e0e0;
   }
 
-  table.mat-table.zotec-table {
+  table.mat-table.mrlonis-table {
     border: 1px solid rgba(229, 229, 229, 0.58);
   }
 
-  .zotec-table {
+  .mrlonis-table {
     .mat-row {
       &[ng-reflect-router-link],
       &.clickable {

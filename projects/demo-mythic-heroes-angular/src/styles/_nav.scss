@@ -6,7 +6,7 @@
   $primary: map.get($color, primary);
   $typography: mat.get-typography-config($config);
   $base-font-size: mat.font-size($typography, 'caption');
-  .zotec-nav-list {
+  .mrlonis-nav-list {
     .mat-list-base,
     &.mat-list-base {
       .mat-list-item,

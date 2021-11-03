@@ -7,7 +7,7 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @use '~@angular/material' as mat;
-$zotec-brand: (
+$mrlonis-brand: (
   50: #e1eaf2,
   100: #b3cadf,
   200: #80a6c9,
@@ -42,7 +42,7 @@ $zotec-brand: (
   ),
 );
 
-$zotec-brand-accent: (
+$mrlonis-brand-accent: (
   50: #f0f7e9,
   100: #d8eac8,
   200: #bbf570,
@@ -79,7 +79,7 @@ $zotec-brand-accent: (
 // adapted from angular material's gray palette
 $dark-primary-text: black;
 $light-primary-text: white;
-$zotec-gray: (
+$mrlonis-gray: (
   50: #ffffff,
   100: #fafafa,
   200: #e5e5e5,
@@ -116,14 +116,14 @@ $zotec-gray: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$zotec-default-app-primary: mat.define-palette($zotec-brand, $darker: 900);
-$zotec-default-app-accent: mat.define-palette($zotec-brand-accent, $darker: 900);
+$mrlonis-default-app-primary: mat.define-palette($mrlonis-brand, $darker: 900);
+$mrlonis-default-app-accent: mat.define-palette($mrlonis-brand-accent, $darker: 900);
 
 // The warn palette is optional (defaults to red).
-$zotec-default-app-warn: mat.define-palette(mat.$red-palette);
-$zotec-default-app-gray: mat.define-palette($zotec-gray);
+$mrlonis-default-app-warn: mat.define-palette(mat.$red-palette);
+$mrlonis-default-app-gray: mat.define-palette($mrlonis-gray);
 
-$zotec-default-typography: mat.define-typography-config(
+$mrlonis-default-typography: mat.define-typography-config(
   $font-family: 'Open Sans, sans-serif',
   $headline: mat.define-typography-level(30px, 41px, 400),
   $title: mat.define-typography-level(20px, 32px, 400),
@@ -136,52 +136,52 @@ $zotec-default-typography: mat.define-typography-config(
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$zotec-default-app-theme: mat.define-light-theme(
+$mrlonis-default-app-theme: mat.define-light-theme(
   (
     color: (
-      primary: $zotec-default-app-primary,
-      accent: $zotec-default-app-accent,
-      warn: $zotec-default-app-warn,
+      primary: $mrlonis-default-app-primary,
+      accent: $mrlonis-default-app-accent,
+      warn: $mrlonis-default-app-warn,
     ),
-    typography: $zotec-default-typography,
+    typography: $mrlonis-default-typography,
   )
 );
 
 // customize background colors
-$background: map.get($zotec-default-app-theme, color, background);
+$background: map.get($mrlonis-default-app-theme, color, background);
 $background: map.merge(
   $background,
   (
-    background: mat.get-color-from-palette($zotec-default-app-gray, 200, 0.58),
+    background: mat.get-color-from-palette($mrlonis-default-app-gray, 200, 0.58),
     card: #fcfcfc,
   )
 );
 // customize foreground colors
-$foreground: map.get($zotec-default-app-theme, color, foreground);
+$foreground: map.get($mrlonis-default-app-theme, color, foreground);
 $foreground: map.merge(
   $foreground,
   (
-    text: mat.get-color-from-palette($zotec-default-app-gray, '200-contrast'),
+    text: mat.get-color-from-palette($mrlonis-default-app-gray, '200-contrast'),
   )
 );
 
-$zotec-default-app-theme: map.deep-merge(
-  $zotec-default-app-theme,
+$mrlonis-default-app-theme: map.deep-merge(
+  $mrlonis-default-app-theme,
   (
     background: $background,
     foreground: $foreground,
     color: (
       background: $background,
       foreground: $foreground,
-      gray: $zotec-default-app-gray,
+      gray: $mrlonis-default-app-gray,
     ),
   )
 );
 
 // define variables for these in case we ever want to customize them
 // components that need the theme or typography should import this file
-$zotec-ibc-coding-app-primary: $zotec-default-app-primary;
-$zotec-ibc-coding-app-accent: $zotec-default-app-accent;
-$zotec-ibc-coding-app-warn: $zotec-default-app-warn;
-$zotec-ibc-coding-app-theme: $zotec-default-app-theme;
-$zotec-ibc-coding-typography: $zotec-default-typography;
+$mrlonis-ibc-coding-app-primary: $mrlonis-default-app-primary;
+$mrlonis-ibc-coding-app-accent: $mrlonis-default-app-accent;
+$mrlonis-ibc-coding-app-warn: $mrlonis-default-app-warn;
+$mrlonis-ibc-coding-app-theme: $mrlonis-default-app-theme;
+$mrlonis-ibc-coding-typography: $mrlonis-default-typography;

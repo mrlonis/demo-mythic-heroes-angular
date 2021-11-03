@@ -18,8 +18,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, merge, Observable, ReplaySubject, Subject, timer } from 'rxjs';
 import { distinctUntilChanged, mapTo, mergeMap, share, startWith, takeUntil, tap, throttleTime } from 'rxjs/operators';
-import { MythicHero } from '../../hero.interface';
-import { SpringDataRestResponse } from '../../spring-data-rest-response.interface';
+import { BaseResource, SpringDataRestResponse } from '../../services/api/interfaces';
 
 @Directive({
   selector: '[mrlonisListMenu]',
@@ -80,7 +79,7 @@ type SerializedMenu<ColumnType> = {
 };
 
 export abstract class SimpleListComponentDataSource<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
@@ -142,7 +141,7 @@ export abstract class SimpleListComponentDataSource<
   styleUrls: ['./simple-list.component.scss'],
 })
 export class SimpleListComponent<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
   }
@@ -177,7 +176,7 @@ export class SimpleListComponent<
   serializedMenu: Array<SerializedMenu<ColumnType>> = [];
   serializedMenus = 0;
   constructor(public router: Router, public route: ActivatedRoute) {
-    this.pageIndex$.next(1);
+    this.pageIndex$.next(0);
     this.pageSize$.next(10);
   }
   @Input() set additionalRows(additionalRows: number) {
@@ -186,7 +185,7 @@ export class SimpleListComponent<
   }
 
   sortChanged(event: Sort): void {
-    this.pageIndex$.next(1);
+    this.pageIndex$.next(0);
     this.sortScheme$.next(event.direction ? (event.direction === 'desc' ? '-' : '') + event.active : '');
   }
   pageChanged(event: { pageSize: number; pageIndex: number }): void {
@@ -195,7 +194,7 @@ export class SimpleListComponent<
   }
 
   ngOnInit(): void {
-    if (this.data.hidePaginator) this.pageSize$.next(1);
+    if (this.data.hidePaginator) this.pageSize$.next(0);
     this.data.markRowCustom$.subscribe((id) => {
       this.markCustomRow(id);
     });
@@ -218,14 +217,14 @@ export class SimpleListComponent<
         this.data.updateFilters$.pipe(
           startWith(undefined),
           tap(() => {
-            this.pageIndex$.next(1);
+            this.pageIndex$.next(0);
           }),
           distinctUntilChanged()
         ),
         this.data.updateSearch$.pipe(
           startWith(''),
           tap(() => {
-            this.pageIndex$.next(1);
+            this.pageIndex$.next(0);
           }),
           distinctUntilChanged()
         ),
@@ -241,25 +240,17 @@ export class SimpleListComponent<
             if (searchText.length) params = params.set('name:in', searchText);
             if (filter) params = filter(params);
             if (!searchText.length && filter == undefined) {
-              this.data
-                .informCacheOnResponse(
-                  this.data.getCollection(pageIndex, pageSize, params.set('_total', 'accurate').set('_summary', 'count'))
-                )
-                .subscribe((response) => {
-                  this.data.total = response.page.totalElements;
-                });
+              this.data.informCacheOnResponse(this.data.getCollection(pageIndex, pageSize, params)).subscribe((response) => {
+                this.data.total = response.page.totalElements;
+              });
 
-              return this.showLoading(
-                this.data.informCacheOnResponse(this.data.getCollection(pageIndex, pageSize, params.delete('_total')))
-              );
+              return this.showLoading(this.data.informCacheOnResponse(this.data.getCollection(pageIndex, pageSize, params)));
             } else {
-              this.data
-                .getCollection(pageIndex, pageSize, params.set('_total', 'accurate').set('_summary', 'count'))
-                .subscribe((response) => {
-                  this.data.total = response.page.totalElements;
-                });
+              this.data.getCollection(pageIndex, pageSize, params).subscribe((response) => {
+                this.data.total = response.page.totalElements;
+              });
 
-              return this.showLoading(this.data.getCollection(pageIndex, pageSize, params.delete('_total')));
+              return this.showLoading(this.data.getCollection(pageIndex, pageSize, params));
             }
           }
         )

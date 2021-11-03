@@ -2,13 +2,13 @@ import { Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryL
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
-import { MythicHero } from '../../hero.interface';
 import { LocalStorageService } from '../../services';
+import { BaseResource } from '../../services/api/interfaces';
 import { FilterChoice, FilterChoices, purifyDateAt } from '../filterable-list/filterable-list.component';
 import { RichColumnDirective, RichRowDirective, SimpleListComponentDataSource } from '../simple-list/simple-list.component';
 
 export abstract class AlwaysFilteredListComponentDataSource<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
@@ -27,7 +27,7 @@ export abstract class AlwaysFilteredListComponentDataSource<
   styleUrls: ['./always-filtered-list.component.scss'],
 })
 export class AlwaysFilteredListComponent<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
   }

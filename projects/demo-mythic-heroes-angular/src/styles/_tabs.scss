@@ -10,7 +10,7 @@
   $foreground: map.get($color, foreground);
   $gray: map.get($color, gray);
 
-  .zotec-page-tabs {
+  .mrlonis-page-tabs {
     .mat-tab-header {
       background: mat.get-color-from-palette($background, card);
       border-bottom: 1px solid mat.get-color-from-palette($gray, 200);

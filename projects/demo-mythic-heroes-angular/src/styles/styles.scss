@@ -9,9 +9,9 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-@include mat.all-component-themes(theme.$zotec-ibc-coding-app-theme);
-@include mat.all-component-typographies(theme.$zotec-ibc-coding-typography);
-@include controls.zotec-shared-all(theme.$zotec-ibc-coding-app-theme);
+@include mat.all-component-themes(theme.$mrlonis-ibc-coding-app-theme);
+@include mat.all-component-typographies(theme.$mrlonis-ibc-coding-typography);
+@include controls.mrlonis-shared-all(theme.$mrlonis-ibc-coding-app-theme);
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -40,7 +40,7 @@ html {
   background-color: darkgray !important;
 }
 
-.zotec-card.detail-panel-rows {
+.mrlonis-card.detail-panel-rows {
   padding: 0;
 }
 

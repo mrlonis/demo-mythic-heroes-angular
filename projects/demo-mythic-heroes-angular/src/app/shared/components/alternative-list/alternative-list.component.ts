@@ -4,11 +4,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { MythicHero } from '../../hero.interface';
+import { BaseResource } from '../../services/api/interfaces';
 import { FilterChoice, FilterChoices, purifyDateAt } from '../filterable-list/filterable-list.component';
 
 export abstract class AlternativeListComponentDataSource<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     [key: string]: string | Observable<string> | Observable<number>;
   },
@@ -45,7 +45,7 @@ export abstract class AlternativeListComponentDataSource<
   styleUrls: ['./alternative-list.component.scss'],
 })
 export class AlternativeListComponent<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     [key: string]: string | Observable<string> | Observable<number>;
   }
@@ -136,7 +136,7 @@ export class AlternativeListComponent<
 
   refreshData(): void {
     this.isLoadingResults = true;
-    let params: HttpParams = new HttpParams().set('_total', 'accurate');
+    let params: HttpParams = new HttpParams();
     if (this.filter) {
       params = this.filter(params);
     }

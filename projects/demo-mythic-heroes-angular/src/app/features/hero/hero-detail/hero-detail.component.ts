@@ -1,7 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MythicHero } from '../../../shared/hero.interface';
-import { HeroService } from '../hero.service';
+import { MythicHeroesAggressiveCache } from '../../../shared/services';
+import { MythicHero } from '../../../shared/services/api/interfaces';
 
 @Component({
   selector: 'mrlonis-hero-detail',
@@ -13,7 +14,7 @@ export class HeroDetailComponent implements OnInit {
   errorMessage = '';
   hero: MythicHero | undefined;
 
-  constructor(private route: ActivatedRoute, private router: Router, private heroService: HeroService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private cache: MythicHeroesAggressiveCache) {}
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('id');
@@ -24,7 +25,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getProduct(id: string): void {
-    this.heroService.getProduct(id).subscribe({
+    this.cache.getBy('mythicHero', new HttpParams().set('id', id)).subscribe({
       next: (hero) => (this.hero = hero),
       error: (err) => (this.errorMessage = <string>err),
     });

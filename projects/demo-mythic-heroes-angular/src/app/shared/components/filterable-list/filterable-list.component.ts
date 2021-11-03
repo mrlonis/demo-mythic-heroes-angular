@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { MythicHero } from '../../hero.interface';
+import { BaseResource } from '../../services/api/interfaces';
 import { RichColumnDirective, RichRowDirective, SimpleListComponentDataSource } from '../simple-list/simple-list.component';
 
 export function purifyDateRange(x: null | undefined | DateRange<Date>): undefined | DateRange<Date> {
@@ -59,7 +59,7 @@ export interface FilterChoice<TYPE extends keyof FilterChoices> {
 }
 
 export abstract class FilterableListComponentDataSource<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
@@ -82,7 +82,7 @@ export abstract class FilterableListComponentDataSource<
   styleUrls: ['./filterable-list.component.scss'],
 })
 export class FilterableListComponent<
-  ObjectType extends MythicHero,
+  ObjectType extends BaseResource,
   ColumnType extends {
     [key: string]: string | Observable<string> | Observable<number> | { type: 'rich'; data: any };
   }

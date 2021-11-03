@@ -7,33 +7,33 @@ To Include in your project
 1. Add a \_theme.scss file and import the shared theme. Perform any customizations to the theme here if necessary
 
 ```
-@use '~@zotec/ngx-shared/assets/theme' as zotec;
+@use '~@mrlonis/ngx-shared/assets/theme' as mrlonis;
 
 // define variables for these in case we ever want to customize them
 // components that need the theme or typography should import this file
-$zotec-my-app-primary: zotec.$zotec-default-app-primary;
-$zotec-my-app-accent: zotec.$zotec-default-app-accent;
-$zotec-my-app-warn: zotec.$zotec-default-app-warn;
-$zotec-my-app-theme: zotec.$zotec-default-app-theme;
-$zotec-my-typography: zotec.$zotec-default-typography;
+$mrlonis-my-app-primary: mrlonis.$mrlonis-default-app-primary;
+$mrlonis-my-app-accent: mrlonis.$mrlonis-default-app-accent;
+$mrlonis-my-app-warn: mrlonis.$mrlonis-default-app-warn;
+$mrlonis-my-app-theme: mrlonis.$mrlonis-default-app-theme;
+$mrlonis-my-typography: mrlonis.$mrlonis-default-typography;
 ```
 
-2. Import the \_theme.scss within your main styles scss along with material's setup and call the shared library's mixin (in @zotec/ngx-shared/assets/controls) to setup the styles
+2. Import the \_theme.scss within your main styles scss along with material's setup and call the shared library's mixin (in @mrlonis/ngx-shared/assets/controls) to setup the styles
 
 ```
 @use '~@angular/material' as mat;
 // Plus imports for other components in your app.
 @use './theme';
-@use '~@zotec/ngx-shared/assets/controls' as controls;
+@use '~@mrlonis/ngx-shared/assets/controls' as controls;
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-@include mat.all-component-themes(theme.$zotec-my-app-theme);
-@include mat.all-component-typographies(theme.$zotec-my-typography);
-@include controls.zotec-shared-all(
-  theme.$zotec-my-app-theme
+@include mat.all-component-themes(theme.$mrlonis-my-app-theme);
+@include mat.all-component-typographies(theme.$mrlonis-my-typography);
+@include controls.mrlonis-shared-all(
+  theme.$mrlonis-my-app-theme
 );
 
 ```
@@ -50,7 +50,7 @@ $zotec-my-typography: zotec.$zotec-default-typography;
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body class="mat-typography mat-app-background">
-    <zotec-root></zotec-root>
+    <mrlonis-root></mrlonis-root>
   </body>
 </html>
 ```
@@ -109,11 +109,11 @@ usually have an h1 tag inside
 
 ### .detail-page-content
 
-Applies margins/padding for the detail content section. The zotec-page-tabs class will apply similar styling to content within material tab groups.
+Applies margins/padding for the detail content section. The mrlonis-page-tabs class will apply similar styling to content within material tab groups.
 
 ### cards
 
-Use material cards (mat-card) to separate sections within the page. Apply the zotec-card class to each card.
+Use material cards (mat-card) to separate sections within the page. Apply the mrlonis-card class to each card.
 
 ## Forms
 

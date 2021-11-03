@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { mixinDisabled, mixinInitialized, ThemePalette } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { SpringDataRestResponse } from '../../spring-data-rest-response.interface';
+import { SpringDataRestResponse } from '../../services/api/interfaces';
 
 /**
  * Change event object that is emitted when the user selects a
@@ -90,14 +90,14 @@ export class BundlePaginatorComponent<MythicHero> extends _BundlePaginatorMixinB
     //http://localhost:8000/patient?_total=none&page=1&_count=10
     if (self) {
       const [page, pageSize, params] = this.parseUrl(self.href);
-      this.pageIndex = page || 1;
-      this.start = pageSize * (this.pageIndex - 1) + 1;
-      this.end = this.start + (this.bundle?.page.size || 0) - 1;
+      this.pageIndex = page || 0;
+      this.start = pageSize * this.pageIndex + 1;
+      this.end = this.start + (this.bundle?.page.size || 0);
       this.isEstimate = params?.get('_total') === 'estimate';
     } else {
       this.start = undefined;
       this.end = undefined;
-      this.pageIndex = 1;
+      this.pageIndex = 0;
       this.isEstimate = false;
     }
   }
@@ -153,9 +153,9 @@ export class BundlePaginatorComponent<MythicHero> extends _BundlePaginatorMixinB
   _changePageSize(pageSize: number): void {
     // Current page needs to be updated to reflect the new page size. Navigate to the page
     // containing the previous page's first item.
-    const startIndex = this.start ?? 1;
+    const startIndex = this.start ?? 0;
 
-    const newPageIndex = Math.ceil(startIndex / pageSize) || 1;
+    const newPageIndex = Math.ceil(startIndex / pageSize) || 0;
     const self = this.bundle?._links.self;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, _x, qs] = this.parseUrl(self?.href);
