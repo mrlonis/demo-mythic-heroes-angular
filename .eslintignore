@@ -4,3 +4,4 @@ jest.config.js
 fixtures
 coverage
 __snapshots__
+*.stories.ts

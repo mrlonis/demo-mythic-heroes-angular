@@ -36,6 +36,7 @@ import {
   FilterableListComponent,
   ListMenuDirective,
   ListMenuProviderDirective,
+  MrlonisAutocompleteInputComponent,
   // LoadingIndicatorComponent,
   RelativeDatePickerComponent,
   RichColumnDirective,
@@ -60,6 +61,7 @@ import {
     RelativeDatePickerComponent,
     SplitTabGroupDirective,
     SplittableTabsComponent,
+    MrlonisAutocompleteInputComponent,
   ],
   imports: [
     // angular
@@ -148,6 +150,7 @@ import {
     RelativeDatePickerComponent,
     SplitTabGroupDirective,
     SplittableTabsComponent,
+    MrlonisAutocompleteInputComponent,
   ],
 })
 export class SharedModule {}
