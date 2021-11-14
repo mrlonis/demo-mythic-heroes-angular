@@ -8,9 +8,10 @@ import { config as appConfig } from './core/app-config';
 import { HeroModule } from './features/hero/hero.module';
 import { WelcomeComponent } from './features/welcome/welcome.component';
 import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared/services/api/base';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, WelcomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,8 +21,8 @@ import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared/services/api/base'
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
     ]),
+    SharedModule,
     HeroModule,
-    // SharedModule,
   ],
   providers: [
     {

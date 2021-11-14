@@ -18,6 +18,6 @@ import { HeroListComponent } from './hero-list/hero-list.component';
       },
     ]),
   ],
-  exports: [SharedModule, HeroListComponent, HeroDetailComponent],
+  exports: [HeroListComponent, HeroDetailComponent],
 })
 export class HeroModule {}

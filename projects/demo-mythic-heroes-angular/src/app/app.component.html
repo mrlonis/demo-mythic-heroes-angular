@@ -1,10 +1,25 @@
-<nav class="navbar navbar-expand navbar-light bg-light">
+<!-- <nav class="navbar navbar-expand navbar-light bg-light">
   <a class="navbar-brand">{{ pageTitle }}</a>
   <ul class="nav nav-pills">
     <li><a class="nav-link" [routerLink]="['/welcome']">Home</a></li>
     <li><a class="nav-link" [routerLink]="['/heroes']">Hero List</a></li>
   </ul>
-</nav>
-<div class="container">
+</nav> -->
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ pageTitle }}</span>
+  <span><a class="nav-link" [routerLink]="['/welcome']">Home</a></span>
+  <span><a class="nav-link" [routerLink]="['/heroes']">Hero List</a></span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
+<main style="height: 100%">
   <router-outlet></router-outlet>
-</div>
+</main>
