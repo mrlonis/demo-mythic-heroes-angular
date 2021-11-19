@@ -5,10 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/demo-mythic-heroes-angular/tsconfig.app.json",
-          "projects/demo-mythic-heroes-angular/tsconfig.spec.json"
-        ],
+        "project": ["**/tsconfig.app.json", "**/tsconfig.spec.json"],
         "createDefaultProgram": true
       },
       "plugins": [],

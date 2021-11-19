@@ -1,4 +1,44 @@
-<div class="filterable-list-container">
-  <h1><mat-icon routerLink="..">arrow_back</mat-icon> {{ dat.queueName }}</h1>
-  <mrlonis-always-filtered-list pageTitle="Mythic Heroes" [data]="dat"></mrlonis-always-filtered-list>
-</div>
+<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+<mat-table *ngIf="!isLoadingResults" [dataSource]="dataSource">
+  <!-- Position Column -->
+  <ng-container matColumnDef="hero">
+    <mat-header-cell *matHeaderCellDef>Hero</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><mrlonis-base-resource-display [data]="element.hero"></mrlonis-base-resource-display
+    ></mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="faction">
+    <mat-header-cell *matHeaderCellDef>Faction</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><mrlonis-base-resource-display [data]="element.faction"></mrlonis-base-resource-display
+    ></mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="rarity">
+    <mat-header-cell *matHeaderCellDef>Rarity</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><mrlonis-base-resource-display [data]="element.rarity"></mrlonis-base-resource-display
+    ></mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><mrlonis-base-resource-display [data]="element.type"></mrlonis-base-resource-display
+    ></mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<mat-paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>

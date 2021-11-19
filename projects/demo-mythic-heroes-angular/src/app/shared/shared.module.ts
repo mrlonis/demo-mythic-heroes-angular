@@ -29,40 +29,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { AngularSplitModule } from 'angular-split';
-import {
-  AlternativeListComponent,
-  AlwaysFilteredListComponent,
-  BundlePaginatorComponent,
-  FilterableListComponent,
-  ListMenuDirective,
-  ListMenuProviderDirective,
-  MrlonisAutocompleteInputComponent,
-  // LoadingIndicatorComponent,
-  RelativeDatePickerComponent,
-  RichColumnDirective,
-  RichRowDirective,
-  SimpleListComponent,
-  SplitTabGroupDirective,
-  SplittableTabsComponent,
-} from './components';
+import { BaseResourceDisplayComponent } from './components';
 
 @NgModule({
-  declarations: [
-    BundlePaginatorComponent,
-    FilterableListComponent,
-    SimpleListComponent,
-    RichColumnDirective,
-    RichRowDirective,
-    ListMenuDirective,
-    ListMenuProviderDirective,
-    AlternativeListComponent,
-    AlwaysFilteredListComponent,
-    // LoadingIndicatorComponent,
-    RelativeDatePickerComponent,
-    SplitTabGroupDirective,
-    SplittableTabsComponent,
-    MrlonisAutocompleteInputComponent,
-  ],
+  declarations: [BaseResourceDisplayComponent],
   imports: [
     // angular
     CommonModule,
@@ -136,21 +106,8 @@ import {
 
     AngularSplitModule,
 
-    // custom
-    BundlePaginatorComponent,
-    FilterableListComponent,
-    SimpleListComponent,
-    RichColumnDirective,
-    RichRowDirective,
-    ListMenuDirective,
-    ListMenuProviderDirective,
-    AlternativeListComponent,
-    AlwaysFilteredListComponent,
-    // LoadingIndicatorComponent,
-    RelativeDatePickerComponent,
-    SplitTabGroupDirective,
-    SplittableTabsComponent,
-    MrlonisAutocompleteInputComponent,
+    // Custom
+    BaseResourceDisplayComponent,
   ],
 })
 export class SharedModule {}
