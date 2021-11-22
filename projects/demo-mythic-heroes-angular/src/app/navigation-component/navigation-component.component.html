@@ -18,7 +18,7 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>demo-mythic-heroes-angular</span>
+      <span class="pointer" [routerLink]="['/welcome']">demo-mythic-heroes-angular</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
