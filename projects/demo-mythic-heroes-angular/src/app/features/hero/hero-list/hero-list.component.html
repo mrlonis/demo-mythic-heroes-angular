@@ -1,8 +1,8 @@
 <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-<mat-table *ngIf="!isLoadingResults" [dataSource]="dataSource">
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
   <!-- Position Column -->
   <ng-container matColumnDef="hero">
-    <mat-header-cell *matHeaderCellDef>Hero</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Hero</mat-header-cell>
     <mat-cell *matCellDef="let element"
       ><mrlonis-base-resource-display [data]="element.hero"></mrlonis-base-resource-display
     ></mat-cell>
@@ -10,25 +10,25 @@
 
   <!-- Name Column -->
   <ng-container matColumnDef="faction">
-    <mat-header-cell *matHeaderCellDef>Faction</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Faction</mat-header-cell>
     <mat-cell *matCellDef="let element"
-      ><mrlonis-base-resource-display [data]="element.faction"></mrlonis-base-resource-display
+      ><mrlonis-base-resource-display [data]="element.faction | async"></mrlonis-base-resource-display
     ></mat-cell>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="rarity">
-    <mat-header-cell *matHeaderCellDef>Rarity</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Rarity</mat-header-cell>
     <mat-cell *matCellDef="let element"
-      ><mrlonis-base-resource-display [data]="element.rarity"></mrlonis-base-resource-display
+      ><mrlonis-base-resource-display [data]="element.rarity | async"></mrlonis-base-resource-display
     ></mat-cell>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="type">
-    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
     <mat-cell *matCellDef="let element"
-      ><mrlonis-base-resource-display [data]="element.type"></mrlonis-base-resource-display
+      ><mrlonis-base-resource-display [data]="element.type | async"></mrlonis-base-resource-display
     ></mat-cell>
   </ng-container>
 
@@ -36,9 +36,11 @@
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 <mat-paginator
+  [disabled]="isLoadingResults"
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 25, 50, 100]"
   showFirstLastButtons
-  aria-label="Select page of periodic elements"
+  aria-label="Select page of Mythic Heroes"
+  (page)="pageEventHandler($event)"
 >
 </mat-paginator>

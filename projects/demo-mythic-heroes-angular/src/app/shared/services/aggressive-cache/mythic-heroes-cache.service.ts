@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { FactionService, HeroService, RarityService, TypeService } from '..';
 import { Faction, MythicHero, Rarity, Type } from '../api/interfaces';
 import { AggressiveCache, AggressiveCacheInvalidator } from './base';
@@ -33,6 +34,14 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
               return [new HttpParams().set('id', entity.id)];
             },
             directRequest: (httpParams: HttpParams) => heroService.getSingle(httpParams.get('id') ?? ''),
+          },
+          collectBy: {
+            directRequest: (httpParams: HttpParams) =>
+              heroService.getCollection(0, 300, httpParams).pipe(
+                map((response) => {
+                  return response._embedded.data;
+                })
+              ),
           },
         },
         faction: {

@@ -28,7 +28,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { AngularSplitModule } from 'angular-split';
 import { BaseResourceDisplayComponent } from './components';
 
 @NgModule({
@@ -67,7 +66,6 @@ import { BaseResourceDisplayComponent } from './components';
     MatToolbarModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    AngularSplitModule,
   ],
   exports: [
     // angular
@@ -103,8 +101,6 @@ import { BaseResourceDisplayComponent } from './components';
     MatToolbarModule,
     MatSlideToggleModule,
     MatTooltipModule,
-
-    AngularSplitModule,
 
     // Custom
     BaseResourceDisplayComponent,
