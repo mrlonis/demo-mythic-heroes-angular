@@ -47,10 +47,22 @@ export abstract class ApiService<T extends BaseResource> {
       params = params.set('size', String(pageSize ?? this.defaultPageSize));
     }
 
-    const url = this.baseUrl;
+    let url = this.baseUrl;
+    if (params.has('name')) {
+      url = this.baseUrl + '/search/findBy';
+    }
+    if (params.has('factionName')) {
+      url = this.baseUrl + '/search/findBy';
+    }
+    if (params.has('rarityName')) {
+      url = this.baseUrl + '/search/findBy';
+    }
+    if (params.has('typeName')) {
+      url = this.baseUrl + '/search/findBy';
+    }
+
     return this.http.get<SpringDataRestResponse<T>>(url, { params }).pipe(
       map((response: SpringDataRestResponse<T>) => {
-        console.log(response);
         return response;
       }),
       catchError((error: HttpErrorResponse) => {

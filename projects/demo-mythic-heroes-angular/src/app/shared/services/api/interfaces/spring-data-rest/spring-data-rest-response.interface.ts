@@ -10,8 +10,8 @@ export interface SpringDataRestResponse<T> {
     self: SpringDataRestHref;
     next?: SpringDataRestHref;
     last?: SpringDataRestHref;
-    profile: SpringDataRestHref;
-    search: SpringDataRestHref;
+    profile?: SpringDataRestHref;
+    search?: SpringDataRestHref;
   };
   page: {
     size: number;

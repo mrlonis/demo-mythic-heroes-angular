@@ -1,10 +1,12 @@
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { mergeMap, startWith } from 'rxjs/operators';
 import { MythicHeroesAggressiveCache } from '../../../shared/services';
 import { BaseResource, Faction, MythicHero, Rarity, Type } from '../../../shared/services/api/interfaces';
 
@@ -22,12 +24,35 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   data: MythicHeroesTableDataSource[] = [];
   isLoadingResults = true;
 
+  nameParam = '';
+  factionNameParam = '';
+  rarityNameParam = '';
+  typeNameParam = '';
+  heroSortParam?: string;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  heroNameFilterControl: FormControl = new FormControl('');
+  filteredOptions: Observable<MythicHero[]> | Observable<never[]> = of([]);
 
   constructor(route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {}
 
   ngOnInit() {
-    this.updateData(new HttpParams());
+    this.updateData();
+
+    this.filteredOptions = this.heroNameFilterControl.valueChanges.pipe(
+      startWith(''),
+      mergeMap((value) => {
+        if (typeof value === 'string') {
+          this.nameParam = value;
+        } else {
+          this.nameParam = (<BaseResource>value).name;
+        }
+
+        this.updateData();
+        return this.cache.collectBy('mythicHero', this.getHttpParams());
+      })
+    );
   }
 
   ngAfterViewInit() {
@@ -67,33 +92,48 @@ export class HeroListComponent implements AfterViewInit, OnInit {
 
   sortData(sort: Sort) {
     console.log(sort);
+
     if (sort.active == 'hero') {
       if (sort.direction == 'asc') {
-        console.log('sort asc');
-        this.updateData(new HttpParams().append('sort', 'name,asc'));
+        this.heroSortParam = 'name,asc';
       } else if (sort.direction == 'desc') {
-        console.log('sort desc');
-        this.updateData(new HttpParams().append('sort', 'name,desc'));
+        this.heroSortParam = 'name,desc';
       } else {
-        console.log('sort default');
-        this.updateData(new HttpParams());
+        this.heroSortParam = undefined;
       }
+
+      this.updateData();
     }
   }
 
-  updateData(sortParams: HttpParams) {
+  updateData() {
     this.isLoadingResults = true;
     forkJoin({
-      heroes: this.cache.collectBy('mythicHero', sortParams),
+      heroes: this.cache.collectBy('mythicHero', this.getHttpParams()),
       factions: this.cache.getAll('faction'),
       rarities: this.cache.getAll('rarity'),
       types: this.cache.getAll('type'),
     }).subscribe((x) => {
-      console.log(x.heroes);
       this.dataSource = new MatTableDataSource<MythicHeroesTableDataSource>(this.createDataSource(x));
       this.dataSource.paginator = this.paginator;
       this.isLoadingResults = false;
     });
+  }
+
+  heroAutocompleteDisplay(hero: MythicHero): string {
+    return hero.name;
+  }
+
+  getHttpParams(): HttpParams {
+    let params = new HttpParams()
+      .set('name', this.nameParam)
+      .set('factionName', this.factionNameParam)
+      .set('rarityName', this.rarityNameParam)
+      .set('typeName', this.typeNameParam);
+    if (this.heroSortParam !== undefined) {
+      params = params.set('sort', this.heroSortParam);
+    }
+    return params;
   }
 }
 

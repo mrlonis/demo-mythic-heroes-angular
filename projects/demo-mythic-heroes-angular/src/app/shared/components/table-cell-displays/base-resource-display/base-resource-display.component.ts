@@ -14,7 +14,6 @@ export class BaseResourceDisplayComponent implements OnInit {
   id = '';
 
   ngOnInit() {
-    console.log('Hello');
     this.imageUrl = this.data?.imageUrl ?? '';
     this.name = this.data?.name ?? '--';
     this.id = this.data?.id ?? '';
