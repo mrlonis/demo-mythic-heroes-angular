@@ -7,13 +7,14 @@ import { BaseResource } from '../../../services/api/interfaces';
   templateUrl: 'base-resource-display.component.html',
 })
 export class BaseResourceDisplayComponent implements OnInit {
-  @Input() data!: BaseResource | null;
+  @Input() data!: BaseResource | null | undefined;
 
   imageUrl = '';
   name = '';
   id = '';
 
   ngOnInit() {
+    console.log(this.data);
     this.imageUrl = this.data?.imageUrl ?? '';
     this.name = this.data?.name ?? '--';
     this.id = this.data?.id ?? '';
