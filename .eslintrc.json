@@ -8,7 +8,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -24,6 +24,22 @@
       ],
       "plugins": [],
       "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "mrlonis",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "mrlonis",
+            "style": "camelCase"
+          }
+        ],
         "arrow-parens": ["off", "always"],
         "brace-style": ["off", "off"],
         "linebreak-style": "off",
