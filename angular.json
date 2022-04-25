@@ -6,6 +6,7 @@
   },
   "version": 1,
   "newProjectRoot": "projects",
+  "defaultProject": "demo-mythic-heroes-angular",
   "projects": {
     "demo-mythic-heroes-angular": {
       "projectType": "application",
@@ -119,9 +120,21 @@
           "options": {
             "lintFilePatterns": ["**/*.ts", "**/*.html"]
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "demo-mythic-heroes-angular:build",
+            "port": 4400
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "demo-mythic-heroes-angular:build"
+          }
         }
       }
     }
-  },
-  "defaultProject": "demo-mythic-heroes-angular"
+  }
 }
