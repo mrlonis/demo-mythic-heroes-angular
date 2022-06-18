@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AggressiveCacheInvalidator {
-  caches: Array<{ invalidate(key: string): void }> = [];
+  caches: { invalidate(key: string): void }[] = [];
   register(cache: { invalidate(key: string): void }): void {
     this.caches.push(cache);
   }

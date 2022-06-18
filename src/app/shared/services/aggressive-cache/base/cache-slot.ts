@@ -1,6 +1,6 @@
-import { HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
+import type { HttpParams } from '@angular/common/http';
+import type { Observable } from 'rxjs';
+import type { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
 
 /**
  * Properties:
@@ -13,7 +13,7 @@ import { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
  *        In other cases, like practitioner role, it's a getCollection(1,1,HttpParams(provider=id)).entry[0].resource.
  */
 export interface GetBySlot<T extends BaseResource> {
-  match: (entry: T) => Array<HttpParams>;
+  match: (entry: T) => HttpParams[];
   directRequest: (httpParams: HttpParams) => Observable<T>;
 }
 
@@ -27,7 +27,7 @@ export interface GetBySlot<T extends BaseResource> {
  *      a required field, but since we can't yet query on arbitrary extensions, it is useful to fall back to sometimes.
  */
 export interface CountBySlot<T extends BaseResource> {
-  match: (entry: T) => Array<HttpParams>;
+  match: (entry: T) => HttpParams[];
   directRequest?: (httpParams: HttpParams) => Observable<number>;
 }
 
@@ -37,8 +37,8 @@ export interface CountBySlot<T extends BaseResource> {
  *    directRequest is similar to getBy's directRequest.
  */
 export interface CollectBySlot<T extends BaseResource> {
-  match?: (entry: T) => Array<HttpParams>;
-  directRequest: (httpParams: HttpParams) => Observable<Array<T>>;
+  match?: (entry: T) => HttpParams[];
+  directRequest: (httpParams: HttpParams) => Observable<T[]>;
 }
 
 // Specifies one type of resource to cache as it comes in.

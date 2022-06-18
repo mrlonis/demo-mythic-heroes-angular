@@ -1,9 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Observable, of, throwError } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
+import type { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
 import { AggressiveCacheInvalidator } from './aggressive-cache-invalidator.service';
 import { AggressiveCache } from './aggressive-cache.service';
 
@@ -48,7 +49,7 @@ class ExampleService {
     page: number,
     params: HttpParams = new HttpParams()
   ): Observable<SpringDataRestResponse<ExampleResource>> {
-    let collection: Array<ExampleResource> = [];
+    let collection: ExampleResource[] = [];
 
     const version = `collection ${++this.collectionRequests}`;
     for (let num = 0; num < this.total; num++) {

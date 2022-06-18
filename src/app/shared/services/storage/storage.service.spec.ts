@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { StorageServiceBase } from './storage.service';
+import type { StorageServiceBase } from './storage.service';
 
+/**
+ *
+ * @param {any} serviceType The servviceType
+ * @param {string} prefix The prefix
+ */
 function setupTests<T extends StorageServiceBase>(
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   serviceType: any,

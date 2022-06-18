@@ -1,10 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, shareReplay, tap } from 'rxjs/operators';
-import { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
-import { AggressiveCacheInvalidator } from './aggressive-cache-invalidator.service';
-import { CacheOccupant } from './cache-occupant';
-import { CacheSlot, CollectBySlot, GetBySlot } from './cache-slot';
+import type { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
+import type { AggressiveCacheInvalidator } from './aggressive-cache-invalidator.service';
+import type { CacheOccupant } from './cache-occupant';
+import type { CacheSlot, CollectBySlot, GetBySlot } from './cache-slot';
 
 /**
  * Types is a dictionary of all the types of resources the cache should manage.
@@ -35,7 +35,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
   /**
    * Invalidates the cache for a certain key.
    *
-   * @param key Key in cache to invalidate
+   * @param {string} key Key in cache to invalidate
    */
   invalidate(key: string): void {
     delete this._cache[key];
@@ -44,8 +44,8 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
   /**
    * Ensures that the internal cache has a CacheOccupant for a given key
    *
-   * @param key The key to check
-   * @returns The CacheOccupant for the given key whether it exists or was just created
+   * @param {string | number} key The key to check
+   * @returns {CacheOccupant<BaseResource>} The CacheOccupant for the given key whether it exists or was just created
    */
   protected enforceEntry<ATTR extends keyof Types>(key: ATTR): CacheOccupant<Types[ATTR]> {
     const existingCacheOccupant: CacheOccupant<Types[ATTR]> | undefined = this._cache[key];
@@ -56,7 +56,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
         lastEntry: undefined,
         getBy: new Map<string, Observable<Types[ATTR]>>(),
         countBy: new Map<string, { complete: boolean; map: Observable<number> }>(),
-        collectBy: new Map<string, { complete: boolean; map: Observable<Array<Types[ATTR]>> }>(),
+        collectBy: new Map<string, { complete: boolean; map: Observable<Types[ATTR][]> }>(),
       };
       this._cache[key] = defaultCacheOccupant;
       return defaultCacheOccupant;
@@ -67,9 +67,9 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
   /**
    * This function is called by informCacheOnResponse to process the response of the request
    *
-   * @param key The key of the entity being analyzed
-   * @param result The collection bundle result from the informCacheOnResponse request
-   * @returns The CacheOccupant for the given key
+   * @param {string | number} key The key of the entity being analyzed
+   * @param { SpringDataRestResponse<BaseResource>} result The collection bundle result from the informCacheOnResponse request
+   * @returns {CacheOccupant<BaseResource>} The CacheOccupant for the given key
    */
   private informCache<ATTR extends keyof Types>(
     key: ATTR,
@@ -152,7 +152,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
         if (collectBy.match != undefined) {
           const valueMatch = collectBy.match;
 
-          const rowCollectBy: Map<string, Array<Types[ATTR]>> = new Map<string, Array<Types[ATTR]>>();
+          const rowCollectBy: Map<string, Types[ATTR][]> = new Map<string, Types[ATTR][]>();
           result._embedded.data.forEach((element) => {
             valueMatch(element).forEach((val) => {
               if (val != undefined) {
@@ -195,9 +195,9 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
    *
    * The cache would then give bad results for getAll, countAll, and countBy.
    *
-   * @param key The key of the collection being observed
-   * @param observable The observable collection to operate on
-   * @returns The original observable collection
+   * @param {string | number} key The key of the collection being observed
+   * @param {Observable<SpringDataRestResponse<BaseResource>>} observable The observable collection to operate on
+   * @returns {Observable<SpringDataRestResponse<BaseResource>>} The original observable collection
    */
   informCacheOnResponse<ATTR extends keyof Types>(
     key: ATTR,
@@ -216,10 +216,10 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
    *    like ones that would show up as options in a dropdown.
    * Should only be called on resources that have getAll:true
    *
-   * @param key The key of the resource being collected
-   * @returns The observable array of entities for the request
+   * @param {string | number} key The key of the resource being collected
+   * @returns  {Observable<Array<BaseResource>>} The observable array of entities for the request
    */
-  getAll<ATTR extends keyof Types>(key: ATTR): Observable<Array<Types[ATTR]>> {
+  getAll<ATTR extends keyof Types>(key: ATTR): Observable<Types[ATTR][]> {
     const cacheValue = this._cache[key]?.all;
     if (cacheValue != undefined) {
       return cacheValue;
@@ -245,9 +245,9 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
    * Gets a resource by that matches by a certain attribute.
    * Should only be called on resources that a relevant getBy entry.
    *
-   * @param key The key of the resource being requested
-   * @param httpParams The HttpParams to get by
-   * @returns The observable entity result
+   * @param {string | number} key The key of the resource being requested
+   * @param {HttpParams} httpParams The HttpParams to get by
+   * @returns {Observable<BaseResource>} The observable entity result
    */
   getBy<ATTR extends keyof Types>(key: ATTR, httpParams: HttpParams): Observable<Types[ATTR]> {
     const httpParamsString = httpParams.toString();
@@ -276,11 +276,11 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
    * Gets a collection of a resource by that matches by a certain attribute.
    * Should only be called on resources that a relevant collectBy entry.
    *
-   * @param key The key of the resource being collected by
-   * @param httpParams The HttpParams to collect by
-   * @returns The observable array of entities for the collect by
+   * @param {string | number} key The key of the resource being collected by
+   * @param {HttpParams} httpParams The HttpParams to collect by
+   * @returns {Observable<Array<BaseResource>>} The observable array of entities for the collect by
    */
-  collectBy<ATTR extends keyof Types>(key: ATTR, httpParams: HttpParams): Observable<Array<Types[ATTR]>> {
+  collectBy<ATTR extends keyof Types>(key: ATTR, httpParams: HttpParams): Observable<Types[ATTR][]> {
     const httpParamsString = httpParams.toString();
 
     const currentCacheValue = this._cache[key]?.collectBy?.get(httpParamsString);
@@ -295,12 +295,12 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
 
     const cacheOccupant = this.enforceEntry(key);
     if (cacheOccupant.collectBy == undefined) {
-      cacheOccupant.collectBy = new Map<string, { complete: boolean; map: Observable<Array<Types[ATTR]>> }>();
+      cacheOccupant.collectBy = new Map<string, { complete: boolean; map: Observable<Types[ATTR][]> }>();
     }
     if (cacheOccupant.collectBy.get(httpParamsString) == undefined) {
       cacheOccupant.collectBy.set(httpParamsString, {
         complete: false,
-        map: new Observable<Array<Types[ATTR]>>(),
+        map: new Observable<Types[ATTR][]>(),
       });
     }
 
@@ -315,8 +315,8 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
   /**
    * Returns an accurate count of all resources of a specified type.
    *
-   * @param key The key of the resource being Counted
-   * @returns The observable number result of the request
+   * @param {string | number} key The key of the resource being Counted
+   * @returns {Observable<number>} The observable number result of the request
    */
   countAll(key: keyof Types): Observable<number> {
     const cacheValue = this._cache[key]?.count;
@@ -342,9 +342,9 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
    * Counts resources whose attribute matches a specified value.
    * Should only be called on resources that a relevant countBy entry.
    *
-   * @param key The key of the resource being counted
-   * @param httpParams The HttpParams to CountBy
-   * @returns The Observable number result of the count
+   * @param {string | number} key The key of the resource being counted
+   * @param {HttpParams} httpParams The HttpParams to CountBy
+   * @returns {Observable<number>} The Observable number result of the count
    */
   countBy(key: keyof Types, httpParams: HttpParams): Observable<number> {
     const httpParamsString = httpParams.toString();

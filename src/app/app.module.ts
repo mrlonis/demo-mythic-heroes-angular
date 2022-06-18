@@ -14,7 +14,8 @@ import { config as appConfig } from './core/app-config';
 import { HeroModule } from './features/hero/hero.module';
 import { WelcomeComponent } from './features/welcome/welcome.component';
 import { NavigationComponentComponent } from './navigation-component/navigation-component.component';
-import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared/services/api/base';
+import type { ApiConfigProvider } from './shared/services/api/base';
+import { API_CONFIG_TOKEN } from './shared/services/api/base';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { BaseResource, SpringDataRestHref } from '.';
+import type { BaseResource, SpringDataRestHref } from '.';
 
 export interface MythicHero extends BaseResource {
   factionId: string;

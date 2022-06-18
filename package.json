@@ -10,7 +10,7 @@
     "prettier": "prettier --config .prettierrc --write \"projects/**/*.{ts,js,css,scss,html,json}\"",
     "test": "ng test",
     "test:ci": "npm run test -- --watch=false --code-coverage --reporters progress,coverage,junit --browsers ChromeHeadless",
-    "lint": "ng lint demo-mythic-heroes-angular --fix",
+    "lint": "ng lint demo-mythic-heroes-angular -- --fix",
     "format:write": "prettier projects/**/*.{ts,json,scss,html} --write",
     "format:test": "prettier projects/**/*.{ts,json,scss,html} --list-different",
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/demo-mythic-heroes-angular/stats.json",
@@ -67,7 +67,6 @@
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^39.3.2",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-storybook": "~0.5.12",
     "husky": "^8.0.1",
@@ -88,10 +87,12 @@
   },
   "lint-staged": {
     "*.{js,scss,html,css,md,json}": [
-      "prettier --write"
+      "prettier --write",
+      "eslint --fix"
     ],
     "*.ts": [
       "prettier --write",
+      "eslint --fix",
       "ng-lint-staged lint --fix --"
     ]
   },

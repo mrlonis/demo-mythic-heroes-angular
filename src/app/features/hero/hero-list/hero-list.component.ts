@@ -1,18 +1,18 @@
 import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import type { AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import type { PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import type { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
+import type { ActivatedRoute } from '@angular/router';
+import type { Observable } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { mergeMap, startWith } from 'rxjs/operators';
-import { MythicHeroesAggressiveCache } from '../../../shared/services';
-import { BaseResource, Faction, MythicHero, Rarity, Type } from '../../../shared/services/api/interfaces';
+import type { MythicHeroesAggressiveCache } from '../../../shared/services';
+import type { BaseResource, Faction, MythicHero, Rarity, Type } from '../../../shared/services/api/interfaces';
 
-/**
- * @title Table with pagination
- */
 @Component({
   selector: 'mrlonis-table-pagination-example',
   styleUrls: ['hero-list.component.scss'],

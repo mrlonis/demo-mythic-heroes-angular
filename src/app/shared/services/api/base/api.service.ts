@@ -1,8 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import type { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { Observable, Subject, throwError } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { BaseResource, SpringDataRestResponse } from '../interfaces';
+import type { BaseResource, SpringDataRestResponse } from '../interfaces';
 
 export interface ApiConfigProvider {
   apiUrl?: string;

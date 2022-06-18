@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import type { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { ApiConfigProvider, ApiService, API_CONFIG_TOKEN } from './base';
-import { MythicHero } from './interfaces';
+import type { ApiConfigProvider } from './base';
+import { ApiService, API_CONFIG_TOKEN } from './base';
+import type { MythicHero } from './interfaces';
 
 @Injectable({
   providedIn: 'root',

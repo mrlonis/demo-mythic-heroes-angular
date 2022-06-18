@@ -33,8 +33,6 @@ export default class ButtonComponent {
 
   /**
    * Button contents
-   *
-   * @required
    */
   @Input()
   label = 'Button';

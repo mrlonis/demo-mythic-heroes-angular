@@ -1,4 +1,4 @@
-import { SpringDataRestHref } from '..';
+import type { SpringDataRestHref } from '..';
 
 export interface SpringDataRestResponse<T> {
   _embedded: {

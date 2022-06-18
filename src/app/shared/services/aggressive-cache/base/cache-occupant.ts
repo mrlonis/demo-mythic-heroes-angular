@@ -1,11 +1,11 @@
-import { Observable } from 'rxjs';
-import { BaseResource } from '../../api/interfaces';
+import type { Observable } from 'rxjs';
+import type { BaseResource } from '../../api/interfaces';
 
 // Used by aggressive cache internally
 export interface CacheOccupant<T extends BaseResource> {
-  all?: Observable<Array<T>>;
+  all?: Observable<T[]>;
   count?: Observable<number>;
-  lastEntry?: Array<T>;
+  lastEntry?: T[];
   getBy: Map<string, Observable<T>>;
   countBy: Map<string, CountByCacheOccupant>;
   collectBy: Map<string, CollectByCacheOccupant<T>>;
@@ -18,5 +18,5 @@ export interface CountByCacheOccupant {
 
 export interface CollectByCacheOccupant<T extends BaseResource> {
   complete: boolean;
-  map: Observable<Array<T>>;
+  map: Observable<T[]>;
 }
