@@ -311,6 +311,7 @@ describe('AggressiveCache', () => {
           },
         });
       });
+
       setTimeout(() => {
         //multiple requests come in after the response comes back from the server
         cache.getBy('example', new HttpParams().set('id', '4')).subscribe((data) => {
