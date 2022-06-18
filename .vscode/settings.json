@@ -35,7 +35,7 @@
     "source.organizeImports": true,
     "source.fixAll": true
   },
-  "editor.formatOnSave": true,
+  // "editor.formatOnSave": true,
   "eslint.options": {
     "extensions": [".ts", ".html"]
   },

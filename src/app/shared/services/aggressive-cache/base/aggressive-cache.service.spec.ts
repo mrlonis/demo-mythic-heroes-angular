@@ -329,6 +329,7 @@ describe('AggressiveCache', () => {
             },
           });
         });
+
         cache.getBy('example', new HttpParams().set('id', '4')).subscribe((data) => {
           expect(data).toEqual({
             id: '4',

@@ -59,9 +59,7 @@
         "brace-style": "error",
         "linebreak-style": "error",
         "new-parens": "error",
-        "newline-per-chained-call": "error",
-        "no-extra-semi": "error",
-        "no-irregular-whitespace": "error",
+        // "newline-per-chained-call": "error",
         "no-trailing-spaces": "error",
         "space-in-parens": "error",
         // @typescript-eslint
