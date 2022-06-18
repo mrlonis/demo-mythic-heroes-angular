@@ -1,14 +1,13 @@
 module.exports = {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-links',
     {
       name: '@storybook/addon-essentials',
       options: {
         docs: false,
       },
     },
-    '@storybook/addon-interactions',
+    '@storybook/preset-scss',
   ],
   framework: '@storybook/angular',
   core: {
@@ -16,5 +15,8 @@ module.exports = {
   },
   features: {
     babelModeV7: true,
+  },
+  angularOptions: {
+    enableIvy: true,
   },
 };

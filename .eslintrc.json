@@ -2,7 +2,18 @@
   "root": true,
   "ignorePatterns": ["projects/**/*", "ng-lint-staged.js"],
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2020
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "tsconfig.json"
+      }
+    }
   },
   "overrides": [
     {
@@ -16,8 +27,8 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:@angular-eslint/recommended--extra",
+        "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:import/recommended",
         "plugin:import/typescript",
         "plugin:prettier/recommended",

@@ -2,11 +2,10 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
     "analytics": "cf0b9a86-d966-4336-aeea-010a6bb353ad",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "version": 1,
   "newProjectRoot": "projects",
-  "defaultProject": "demo-mythic-heroes-angular",
   "projects": {
     "demo-mythic-heroes-angular": {
       "projectType": "application",

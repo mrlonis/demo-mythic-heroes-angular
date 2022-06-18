@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,7 +32,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  heroNameFilterControl: FormControl = new FormControl('');
+  heroNameFilterControl: UntypedFormControl = new UntypedFormControl('');
   filteredOptions: Observable<MythicHero[]> | Observable<never[]> = of([]);
 
   constructor(route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {}
