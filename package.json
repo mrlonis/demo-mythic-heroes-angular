@@ -18,7 +18,8 @@
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/demo-mythic-heroes-angular/stats.json",
     "prepare": "husky install",
     "storybook": "ng run demo-mythic-heroes-angular:storybook",
-    "build-storybook": "ng run demo-mythic-heroes-angular:build-storybook"
+    "build-storybook": "ng run demo-mythic-heroes-angular:build-storybook",
+    "lint-staged": "lint-staged"
   },
   "private": true,
   "dependencies": {
