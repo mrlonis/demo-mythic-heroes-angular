@@ -94,7 +94,7 @@
     ],
     "*.ts": [
       "prettier --write",
-      "eslint --fix",
+      "eslint -c ./.eslintrc.json --fix",
       "ng-lint-staged lint --fix --"
     ]
   },
