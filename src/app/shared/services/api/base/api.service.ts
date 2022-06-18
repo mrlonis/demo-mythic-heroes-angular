@@ -100,6 +100,10 @@ export abstract class ApiService<T extends BaseResource> {
     );
   }
 
+  getImageUrl(imageUrlSuffix: string): string {
+    return `${this.apiUrl}/images/${imageUrlSuffix}`;
+  }
+
   log(message: string): void {
     console.log(message);
   }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HeroService } from '../../../services';
 import { BaseResource } from '../../../services/api/interfaces';
 
 @Component({
@@ -9,9 +10,15 @@ import { BaseResource } from '../../../services/api/interfaces';
 export class BaseResourceDisplayComponent implements OnInit {
   @Input() data!: BaseResource | null | undefined;
 
+  heroService: HeroService;
+
   imageUrl = '';
   name = '';
   id = '';
+
+  constructor(heroService: HeroService) {
+    this.heroService = heroService;
+  }
 
   ngOnInit() {
     console.log(this.data);

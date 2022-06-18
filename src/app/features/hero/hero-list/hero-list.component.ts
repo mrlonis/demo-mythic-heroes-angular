@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,7 +32,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  heroNameFilterControl: UntypedFormControl = new UntypedFormControl('');
+  heroNameFilterControl = new FormControl('');
   filteredOptions: Observable<MythicHero[]> | Observable<never[]> = of([]);
 
   constructor(route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {}
@@ -43,12 +43,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
     this.filteredOptions = this.heroNameFilterControl.valueChanges.pipe(
       startWith(''),
       mergeMap((value) => {
-        if (typeof value === 'string') {
-          this.nameParam = value;
-        } else {
-          this.nameParam = (<BaseResource>value).name;
-        }
-
+        this.nameParam = value != null ? value : '';
         this.updateData();
         return this.cache.collectBy('mythicHero', this.getHttpParams());
       })
