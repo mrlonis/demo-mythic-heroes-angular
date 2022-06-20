@@ -1,6 +1,6 @@
 import type { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, InjectionToken } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -12,9 +12,6 @@ export interface ApiConfigProvider {
 
 export const API_CONFIG_TOKEN = new InjectionToken<ApiConfigProvider>('api.config');
 
-@Injectable({
-  providedIn: 'root',
-})
 export abstract class ApiService<T extends BaseResource> {
   defaultPageSize = 20;
   constructor(

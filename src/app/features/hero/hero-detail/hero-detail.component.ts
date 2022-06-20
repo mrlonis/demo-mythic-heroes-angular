@@ -2,8 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import type { ActivatedRoute, Router } from '@angular/router';
-import type { MythicHeroesAggressiveCache } from '../../../shared/services';
-import type { Faction, MythicHero, Rarity, Type } from '../../../shared/services/api/interfaces';
+import type { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
 
 @Component({
   selector: 'mrlonis-hero-detail',
@@ -18,7 +17,12 @@ export class HeroDetailComponent implements OnInit {
   rarity: Rarity | undefined;
   type: Type | undefined;
 
-  constructor(private route: ActivatedRoute, private router: Router, private cache: MythicHeroesAggressiveCache) {}
+  constructor(
+    public heroService: HeroService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cache: MythicHeroesAggressiveCache
+  ) {}
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('id');

@@ -2,11 +2,13 @@ import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import type { FactionService, HeroService, RarityService, TypeService } from '..';
-import type { Faction, MythicHero, Rarity, Type } from '../api/interfaces';
+import type { Faction, MythicHero, Rarity, Type } from '../api';
 import type { AggressiveCacheInvalidator } from './base';
 import { AggressiveCache } from './base';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class MythicHeroesAggressiveCache extends AggressiveCache<{
   mythicHero: MythicHero;
   faction: Faction;

@@ -10,8 +10,7 @@ import type { ActivatedRoute } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { forkJoin, of } from 'rxjs';
 import { mergeMap, startWith } from 'rxjs/operators';
-import type { MythicHeroesAggressiveCache } from '../../../shared/services';
-import type { BaseResource, Faction, MythicHero, Rarity, Type } from '../../../shared/services/api/interfaces';
+import type { BaseResource, Faction, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
 
 @Component({
   selector: 'mrlonis-table-pagination-example',
