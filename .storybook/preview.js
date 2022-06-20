@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { moduleMetadata } from '@storybook/angular';
 import { themes } from '@storybook/theming';
 // import docJson from '../documentation.json';
-import '../projects/zotec-ibc-interface-admin-app/src/styles/styles.scss';
+import '../src/styles/styles.scss';
 
 // setCompodocJson(docJson);
 
