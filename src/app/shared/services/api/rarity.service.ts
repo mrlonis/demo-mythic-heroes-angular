@@ -1,4 +1,4 @@
-import type { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import type { ApiConfigProvider } from './base';
 import { ApiService, API_CONFIG_TOKEN } from './base';

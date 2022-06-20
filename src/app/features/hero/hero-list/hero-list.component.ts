@@ -6,11 +6,11 @@ import type { PageEvent } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 import type { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import type { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { forkJoin, of } from 'rxjs';
 import { mergeMap, startWith } from 'rxjs/operators';
-import type { BaseResource, Faction, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
+import { BaseResource, Faction, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
 
 @Component({
   selector: 'mrlonis-table-pagination-example',

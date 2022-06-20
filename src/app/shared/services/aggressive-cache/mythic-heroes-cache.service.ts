@@ -1,10 +1,9 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import type { FactionService, HeroService, RarityService, TypeService } from '..';
+import { FactionService, HeroService, RarityService, TypeService } from '..';
 import type { Faction, MythicHero, Rarity, Type } from '../api';
-import type { AggressiveCacheInvalidator } from './base';
-import { AggressiveCache } from './base';
+import { AggressiveCache, AggressiveCacheInvalidator } from './base';
 
 @Injectable({
   providedIn: 'root',

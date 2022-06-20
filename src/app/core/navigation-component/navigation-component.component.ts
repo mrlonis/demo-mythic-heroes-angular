@@ -1,5 +1,4 @@
-import type { BreakpointObserver } from '@angular/cdk/layout';
-import { Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';

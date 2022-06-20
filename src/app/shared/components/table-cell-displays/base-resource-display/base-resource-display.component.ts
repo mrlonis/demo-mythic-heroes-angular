@@ -1,6 +1,6 @@
 import type { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import type { BaseResource, HeroService } from '../../../services';
+import { BaseResource, HeroService } from '../../../services';
 
 @Component({
   selector: 'mrlonis-base-resource-display',

@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import type { ActivatedRoute, Router } from '@angular/router';
-import type { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
 
 @Component({
   selector: 'mrlonis-hero-detail',
