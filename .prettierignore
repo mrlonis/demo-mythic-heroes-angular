@@ -1,7 +1,8 @@
-.husky/
-coverage/
-dist/
-junit/
-node_modules/
-package-lock.json
-yarn.lock
+./.husky/
+./coverage/
+./dist/
+./junit/
+./node_modules/
+./storybook-static
+./package-lock.json
+./yarn.lock

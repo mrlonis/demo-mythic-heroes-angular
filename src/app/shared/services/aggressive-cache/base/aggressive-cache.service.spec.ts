@@ -24,7 +24,7 @@ class ExampleService {
   getSingle(params: HttpParams): Observable<ExampleResource> {
     const id: string = params.get('id') ?? '';
     if (id == '') {
-      return throwError('not found');
+      return throwError(() => new Error('not found'));
     }
     const ver = `single ${++this.singleRequests}`;
     const almost: ExampleResource = {
@@ -126,6 +126,7 @@ class AggressiveCacheExample extends AggressiveCache<{
           getBy: {
             match: (entry: ExampleResource) => [
               new HttpParams().set('id', entry.id),
+              new HttpParams().set('ident', entry.id),
               new HttpParams().set('name', entry.name),
             ],
             directRequest: (httpParams: HttpParams) => service.getSingle(httpParams),
@@ -174,16 +175,16 @@ describe('AggressiveCache', () => {
 
   describe('getBy', () => {
     it('should forward errors', (done) => {
-      cache.getBy('example', new HttpParams().set('id', '')).subscribe(
-        () => {
+      cache.getBy('example', new HttpParams().set('id', '')).subscribe({
+        next: () => {
           fail('should not complete normally');
           done();
         },
-        (err) => {
-          expect(err).toEqual('not found');
+        error: (err: Error) => {
+          expect(err.message).toEqual('not found');
           done();
-        }
-      );
+        },
+      });
     });
 
     it('should get by imageUrl', fakeAsync(() => {
@@ -578,14 +579,14 @@ describe('AggressiveCache', () => {
            * We know this is not cache in informCacheOnResponse, because the service getSingle will throw
            * an error if the HttpParams doesn't have an id set
            */
-          cache.getBy('example', new HttpParams().set('ident', '4')).subscribe(
-            () => {
+          cache.getBy('example', new HttpParams().set('ident', '4')).subscribe({
+            next: () => {
               fail('should not complete normally');
             },
-            (err) => {
-              expect(err).toEqual('not found');
-            }
-          );
+            error: (err: Error) => {
+              expect(err.message).toEqual('not found');
+            },
+          });
         }, 400);
         tick(800);
       }));

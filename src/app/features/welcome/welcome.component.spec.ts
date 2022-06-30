@@ -2,7 +2,6 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
-import { WelcomeModule } from './welcome.module';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -10,7 +9,7 @@ describe('WelcomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WelcomeModule],
+      imports: [WelcomeComponent],
     }).compileComponents();
   });
 

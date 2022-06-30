@@ -2,16 +2,16 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ApiConfigProvider, API_CONFIG_TOKEN } from '../../../shared';
-import { HeroDetailComponent } from './hero-detail.component';
+import { ApiConfigProvider, API_CONFIG_TOKEN } from '../../../services';
+import { BaseResourceDisplayComponent } from './base-resource-display.component';
 
-describe('HeroDetailComponent', () => {
-  let component: HeroDetailComponent;
-  let fixture: ComponentFixture<HeroDetailComponent>;
+describe('BaseResourceDisplayComponent', () => {
+  let component: BaseResourceDisplayComponent;
+  let fixture: ComponentFixture<BaseResourceDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroDetailComponent, HttpClientTestingModule, RouterTestingModule],
+      imports: [BaseResourceDisplayComponent, HttpClientTestingModule, RouterTestingModule],
       providers: [
         {
           provide: API_CONFIG_TOKEN,
@@ -24,7 +24,7 @@ describe('HeroDetailComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeroDetailComponent);
+    fixture = TestBed.createComponent(BaseResourceDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

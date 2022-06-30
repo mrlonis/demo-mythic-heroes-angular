@@ -66,7 +66,7 @@ export abstract class ApiService<T extends BaseResource> {
       }),
       catchError((error: HttpErrorResponse) => {
         this.onError.next(error.message);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
@@ -78,7 +78,7 @@ export abstract class ApiService<T extends BaseResource> {
       map((response: T) => response),
       catchError((error: HttpErrorResponse) => {
         this.onError.next(error.message);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
@@ -88,13 +88,15 @@ export abstract class ApiService<T extends BaseResource> {
     return this.http.get<SpringDataRestResponse<T>>(url, { params: httpParams }).pipe(
       map((response: SpringDataRestResponse<T>) => {
         if (response._embedded.data.length != 1) {
-          throwError(`Entry length is supposed to be 1! Length was instead ${response._embedded.data.length}`);
+          throwError(
+            () => new Error(`Entry length is supposed to be 1! Length was instead ${response._embedded.data.length}`)
+          );
         }
         return response._embedded.data[0];
       }),
       catchError((error: HttpErrorResponse) => {
         this.onError.next(error.message);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }

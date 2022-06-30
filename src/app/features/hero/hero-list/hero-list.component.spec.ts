@@ -1,7 +1,9 @@
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ApiConfigProvider, API_CONFIG_TOKEN } from '../../../shared';
 import { HeroListComponent } from './hero-list.component';
-import { HeroListModule } from './hero-list.module';
 
 describe('HeroListComponent', () => {
   let component: HeroListComponent;
@@ -9,7 +11,15 @@ describe('HeroListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroListModule],
+      imports: [HeroListComponent, NoopAnimationsModule, RouterTestingModule],
+      providers: [
+        {
+          provide: API_CONFIG_TOKEN,
+          useValue: {
+            apiUrl: 'http://localhost:9001/api',
+          } as ApiConfigProvider,
+        },
+      ],
     }).compileComponents();
   });
 

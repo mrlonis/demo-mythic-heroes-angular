@@ -1,21 +1,50 @@
+import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import type { AfterViewInit, OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import type { PageEvent } from '@angular/material/paginator';
-import { MatPaginator } from '@angular/material/paginator';
-import type { Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { forkJoin, of } from 'rxjs';
 import { mergeMap, startWith } from 'rxjs/operators';
-import { BaseResource, Faction, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
+import {
+  BaseResource,
+  BaseResourceDisplayComponent,
+  Faction,
+  MythicHero,
+  MythicHeroesAggressiveCache,
+  Rarity,
+  Type,
+} from '../../../shared';
 
 @Component({
+  standalone: true,
   selector: 'mrlonis-table-pagination-example',
   styleUrls: ['hero-list.component.scss'],
   templateUrl: 'hero-list.component.html',
+  imports: [
+    BaseResourceDisplayComponent,
+    CommonModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
 })
 export class HeroListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['hero', 'faction', 'rarity', 'type'];

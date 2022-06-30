@@ -36,7 +36,7 @@
         "plugin:prettier/recommended",
         "plugin:storybook/recommended"
       ],
-      "plugins": [],
+      "plugins": ["deprecation"],
       "rules": {
         "@angular-eslint/no-output-on-prefix": ["off", "always"],
         "@angular-eslint/component-selector": [
@@ -67,6 +67,8 @@
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/unbound-method": ["error", { "ignoreStatic": true }],
+        // eslint-plugin-deprecation
+        "deprecation/deprecation": "warn",
         // eslint-plugin-import
         "import/no-unresolved": "error",
         "import/order": "error",
