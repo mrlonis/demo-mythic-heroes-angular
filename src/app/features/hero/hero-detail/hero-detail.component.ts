@@ -1,6 +1,7 @@
-import { HttpClientModule, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
@@ -10,7 +11,7 @@ import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, 
   selector: 'mrlonis-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.scss'],
-  imports: [HttpClientModule, MatCardModule, RouterModule],
+  imports: [MatButtonModule, MatCardModule, RouterModule],
 })
 export class HeroDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
