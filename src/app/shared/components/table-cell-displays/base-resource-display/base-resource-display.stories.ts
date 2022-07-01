@@ -1,8 +1,8 @@
 // also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
-import { Meta, Story } from '@storybook/angular/types-6-0';
-import { BaseResource } from '../../../services/api/interfaces';
+import { componentWrapperDecorator, Meta, moduleMetadata, Story } from '@storybook/angular';
+import { ApiConfigProvider, API_CONFIG_TOKEN, BaseResource } from '../../../services';
 import { BaseResourceDisplayComponent } from './base-resource-display.component';
 
 export default {
@@ -14,8 +14,15 @@ export default {
       return `<div style="margin: 3em">${story}</div>`;
     }),
     moduleMetadata({
-      declarations: [BaseResourceDisplayComponent],
-      imports: [RouterTestingModule],
+      imports: [BaseResourceDisplayComponent, HttpClientTestingModule, RouterTestingModule],
+      providers: [
+        {
+          provide: API_CONFIG_TOKEN,
+          useValue: {
+            apiUrl: 'http://localhost:9001/api',
+          } as ApiConfigProvider,
+        },
+      ],
     }),
   ],
 } as Meta;
@@ -31,8 +38,8 @@ Default.args = {
 
 const baseResource: BaseResource = {
   id: 'fake id',
-  name: 'fake name',
-  imageUrl: 'https://www.mythicheroes.com/wp-content/uploads/2021/08/tinyprofile-5-120x120.png',
+  name: 'Lucifer',
+  imageUrl: 'mythicHeroes/Lucifer.png',
 
   _links: {
     self: {

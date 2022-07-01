@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -9,7 +10,7 @@ import { BaseResource, HeroService } from '../../../services';
   selector: 'mrlonis-base-resource-display',
   styleUrls: ['base-resource-display.component.scss'],
   templateUrl: 'base-resource-display.component.html',
-  imports: [MatProgressSpinnerModule, RouterModule],
+  imports: [CommonModule, MatProgressSpinnerModule, RouterModule],
 })
 export class BaseResourceDisplayComponent implements OnInit {
   @Input() data: BaseResource | null;
