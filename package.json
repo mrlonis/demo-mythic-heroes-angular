@@ -11,17 +11,14 @@
     "analyze": "ng build --prod --stats-json && webpack-bundle-analyzer ./dist/demo-mythic-heroes-angular/stats.json",
     "test": "ng test",
     "test:ci": "npm run test -- --watch=false --code-coverage --reporters progress,coverage,junit --browsers ChromeHeadless",
-    "lint": "ng lint demo-mythic-heroes-angular",
-    "lint:fix": "ng lint demo-mythic-heroes-angular --fix",
+    "lint": "ng lint demo-mythic-heroes-angular --fix",
     "eslint:fix": "eslint -c ./.eslintrc.json --fix --ext .ts,.html .",
     "prettier": "prettier --config .prettierrc --write \"./**/*.{ts,js,css,scss,html,json,md}\"",
     "prettier:write": "prettier ./**/*.{ts,json,scss,html} --write",
     "prettier:test": "prettier ./**/*.{ts,json,scss,html} --list-different",
     "build-storybook": "ng run demo-mythic-heroes-angular:build-storybook",
     "storybook": "ng run demo-mythic-heroes-angular:storybook",
-    "lint-staged": "lint-staged",
-    "update": "ncu -x typescript,@types/node",
-    "update:apply": "ncu -x typescript,@types/node -u"
+    "lint-staged": "lint-staged"
   },
   "private": true,
   "dependencies": {
@@ -60,7 +57,7 @@
     "@storybook/preset-scss": "^1.0.3",
     "@storybook/testing-library": "~0.0.13",
     "@types/jasmine": "^4.0.3",
-    "@types/node": "^16.11.41",
+    "@types/node": "^16.11.42",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "@typescript-eslint/types": "^5.30.0",
@@ -85,7 +82,6 @@
     "karma-junit-reporter": "^2.0.1",
     "lint-staged": "^13.0.3",
     "ng-lint-staged": "^12.0.4",
-    "npm-check-updates": "^14.1.1",
     "prettier": "^2.7.1",
     "puppeteer": "^15.2.0",
     "typescript": "~4.6.4",
@@ -98,7 +94,7 @@
     ],
     "*.{html,ts}": [
       "prettier --write",
-      "ng-lint-staged lint --fix --"
+      "ng-lint-staged lint --"
     ]
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.",

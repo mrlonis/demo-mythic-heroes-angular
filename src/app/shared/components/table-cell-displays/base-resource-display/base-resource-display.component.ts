@@ -1,5 +1,6 @@
 import type { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { BaseResource, HeroService } from '../../../services';
 
@@ -8,25 +9,28 @@ import { BaseResource, HeroService } from '../../../services';
   selector: 'mrlonis-base-resource-display',
   styleUrls: ['base-resource-display.component.scss'],
   templateUrl: 'base-resource-display.component.html',
-  imports: [RouterModule],
+  imports: [MatProgressSpinnerModule, RouterModule],
 })
 export class BaseResourceDisplayComponent implements OnInit {
-  @Input() data!: BaseResource | null | undefined;
-
-  heroService: HeroService;
+  @Input() data: BaseResource | null;
 
   imageUrl = '';
   name = '';
   id = '';
 
-  constructor(heroService: HeroService) {
-    this.heroService = heroService;
+  constructor(private heroService: HeroService) {
+    this.data = null;
   }
 
   ngOnInit() {
-    console.log(this.data);
-    this.imageUrl = this.data?.imageUrl ?? '';
-    this.name = this.data?.name ?? '--';
-    this.id = this.data?.id ?? '';
+    if (this.data != null) {
+      this.imageUrl = this.data.imageUrl;
+      this.name = this.data.name;
+      this.id = this.data.id;
+    }
+  }
+
+  getImageUrl(): string {
+    return this.heroService.getImageUrl(this.imageUrl);
   }
 }

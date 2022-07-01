@@ -2,8 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { HeroDetailComponent, HeroDetailGuard, HeroListComponent, WelcomeComponent } from './app';
+import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { config as appConfig } from './app/core';
 import { ApiConfigProvider, API_CONFIG_TOKEN } from './app/shared';
@@ -13,18 +12,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-const routes: Routes = [
-  { path: 'welcome', component: WelcomeComponent },
-  { path: 'heroes', component: HeroListComponent },
-  {
-    path: 'heroes/:id',
-    canActivate: [HeroDetailGuard],
-    component: HeroDetailComponent,
-  },
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-  { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
-];
-
 bootstrapApplication(AppComponent, {
   providers: [
     {
@@ -33,7 +20,7 @@ bootstrapApplication(AppComponent, {
         apiUrl: appConfig.apiUrl,
       } as ApiConfigProvider,
     },
-    importProvidersFrom(RouterModule.forRoot(routes)),
+    importProvidersFrom(AppRoutingModule),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(HttpClientModule),
   ],

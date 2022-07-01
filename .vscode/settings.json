@@ -41,5 +41,13 @@
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html"],
   "files.eol": "\n",
-  "js/ts.implicitProjectConfig.experimentalDecorators": true
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  }
 }

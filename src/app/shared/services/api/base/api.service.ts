@@ -106,6 +106,6 @@ export abstract class ApiService<T extends BaseResource> {
   }
 
   log(message: string): void {
-    console.log(message);
+    console.log(`ApiService: log(): ${message}`);
   }
 }

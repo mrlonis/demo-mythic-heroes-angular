@@ -1,14 +1,29 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { NavigationComponentComponent } from './core';
+import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigationComponentComponent, NoopAnimationsModule, RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [
+        AppComponent,
+        HttpClientTestingModule,
+        NavigationComponentComponent,
+        NoopAnimationsModule,
+        RouterTestingModule,
+      ],
+      providers: [
+        {
+          provide: API_CONFIG_TOKEN,
+          useValue: {
+            apiUrl: 'http://localhost:9001/api',
+          } as ApiConfigProvider,
+        },
+      ],
     }).compileComponents();
   });
 

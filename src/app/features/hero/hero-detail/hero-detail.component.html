@@ -4,14 +4,16 @@
     <mat-card-title>{{ pageTitle + ': ' + hero?.name }}</mat-card-title>
     <mat-card-subtitle>SUBTITLE</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-image
-    [src]="this.heroService.getImageUrl(hero?.imageUrl ?? '')"
-    [title]="hero?.name"
-    [style.width.px]="150"
-    [style.margin.px]="2"
-    alt="hero.name image"
-  />
+  <div *ngIf="this.hero !== undefined">
+    <img
+      mat-card-image
+      [src]="this.getImageUrl()"
+      [title]="hero?.name"
+      [style.width.px]="150"
+      [style.margin.px]="2"
+      alt="hero.name image"
+    />
+  </div>
   <mat-card-content>
     <div class="col-md-4">Name: {{ hero?.name }}</div>
     <div class="col-md-4">Faction: {{ faction?.name }}</div>

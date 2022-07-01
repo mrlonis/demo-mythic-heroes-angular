@@ -4,8 +4,10 @@ import type { AfterViewInit, OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -14,7 +16,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { forkJoin, of } from 'rxjs';
-import { mergeMap, startWith } from 'rxjs/operators';
 import {
   BaseResource,
   BaseResourceDisplayComponent,
@@ -35,7 +36,9 @@ import {
     CommonModule,
     FormsModule,
     MatAutocompleteModule,
+    MatButtonModule,
     MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatOptionModule,
     MatPaginatorModule,
@@ -67,15 +70,13 @@ export class HeroListComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.updateData();
+    this.filteredOptions = this.cache.collectBy('mythicHero', this.getHttpParams());
 
-    this.filteredOptions = this.heroNameFilterControl.valueChanges.pipe(
-      startWith(''),
-      mergeMap((value) => {
-        this.nameParam = value != null ? value : '';
-        this.updateData();
-        return this.cache.collectBy('mythicHero', this.getHttpParams());
-      })
-    );
+    this.heroNameFilterControl.valueChanges.subscribe((value) => {
+      this.nameParam = value != null ? value : '';
+      this.updateData();
+      this.filteredOptions = this.cache.collectBy('mythicHero', this.getHttpParams());
+    });
   }
 
   ngAfterViewInit() {
@@ -110,10 +111,12 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   }
 
   pageEventHandler(event: PageEvent) {
+    console.log('HeroListComponent: pageEventHandler(): Starting...');
     console.log(event);
   }
 
   sortData(sort: Sort) {
+    console.log('HeroListComponent: sortData(): Starting...');
     console.log(sort);
 
     if (sort.active == 'hero') {
@@ -143,10 +146,6 @@ export class HeroListComponent implements AfterViewInit, OnInit {
     });
   }
 
-  heroAutocompleteDisplay(hero: MythicHero): string {
-    return hero.name;
-  }
-
   getHttpParams(): HttpParams {
     let params = new HttpParams()
       .set('name', this.nameParam)
@@ -157,6 +156,10 @@ export class HeroListComponent implements AfterViewInit, OnInit {
       params = params.set('sort', this.heroSortParam);
     }
     return params;
+  }
+
+  clearNameFilter(): void {
+    this.heroNameFilterControl.setValue('');
   }
 }
 

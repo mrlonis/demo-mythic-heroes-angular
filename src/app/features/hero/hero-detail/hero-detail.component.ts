@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import type { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,7 +12,7 @@ import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, 
   selector: 'mrlonis-hero-detail',
   templateUrl: './hero-detail.component.html',
   styleUrls: ['./hero-detail.component.scss'],
-  imports: [MatButtonModule, MatCardModule, RouterModule],
+  imports: [CommonModule, MatButtonModule, MatCardModule, RouterModule],
 })
 export class HeroDetailComponent implements OnInit {
   pageTitle = 'Product Detail';
@@ -62,5 +63,9 @@ export class HeroDetailComponent implements OnInit {
       .catch((err) => console.log(err))
       .then(() => console.log('this will succeed'))
       .catch(() => 'obligatory catch');
+  }
+
+  getImageUrl(): string {
+    return this.heroService.getImageUrl(this.hero?.imageUrl ?? '');
   }
 }

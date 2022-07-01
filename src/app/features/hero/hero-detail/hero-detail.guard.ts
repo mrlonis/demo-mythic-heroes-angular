@@ -12,6 +12,7 @@ export class HeroDetailGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    console.log('HeroDetailGuard: canActivate(): Starting...');
     console.log(state);
     const id = route.paramMap.get('id');
     if (id == 'error') {
