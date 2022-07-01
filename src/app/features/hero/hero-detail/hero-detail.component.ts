@@ -15,7 +15,6 @@ import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, 
   imports: [CommonModule, MatButtonModule, MatCardModule, RouterModule],
 })
 export class HeroDetailComponent implements OnInit {
-  pageTitle = 'Product Detail';
   errorMessage = '';
   hero: MythicHero | undefined;
   faction: Faction | undefined;
