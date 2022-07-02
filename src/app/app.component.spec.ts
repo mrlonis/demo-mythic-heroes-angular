@@ -3,8 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NavigationComponentComponent } from './core';
-import { ApiConfigProvider, API_CONFIG_TOKEN } from './shared';
+import { ApiConfigProvider, API_CONFIG_TOKEN, NavigationComponentComponent } from './shared';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

@@ -13,8 +13,8 @@ import { map, shareReplay } from 'rxjs/operators';
 @Component({
   standalone: true,
   selector: 'mrlonis-navigation-component',
-  templateUrl: './navigation-component.component.html',
-  styleUrls: ['./navigation-component.component.scss'],
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss'],
   imports: [CommonModule, MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule, RouterModule],
 })
 export class NavigationComponentComponent {

@@ -1,4 +1,3 @@
-// also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
