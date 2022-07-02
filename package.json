@@ -2,8 +2,8 @@
   "name": "demo-mythic-heroes-angular",
   "version": "0.0.0",
   "scripts": {
+    "prepare": "husky install",
     "husky:init": "npx husky-init",
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "build:production": "ng build --configuration production",
