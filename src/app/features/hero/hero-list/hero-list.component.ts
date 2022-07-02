@@ -13,7 +13,7 @@ import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/p
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import type { Observable } from 'rxjs';
 import { forkJoin, of } from 'rxjs';
 import {
@@ -66,7 +66,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   heroNameFilterControl = new FormControl('');
   filteredOptions: Observable<MythicHero[]> | Observable<never[]> = of([]);
 
-  constructor(route: ActivatedRoute, private cache: MythicHeroesAggressiveCache) {}
+  constructor(private cache: MythicHeroesAggressiveCache) {}
 
   ngOnInit() {
     this.updateData();
