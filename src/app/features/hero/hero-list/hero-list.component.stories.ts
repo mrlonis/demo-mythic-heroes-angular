@@ -1,10 +1,10 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
-import { HeroService } from 'src/app/shared';
+import { MythicHeroesApiService } from '../../../shared';
 import { HeroListComponent } from './hero-list.component';
 
 class StorybookHeroService {}
 
-const heroService = null;
+const api = null;
 
 export default {
   title: 'mrlonis/HeroListComponent',
@@ -12,7 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [HeroListComponent],
-      providers: [{ provide: HeroService, useValue: heroService }],
+      providers: [{ provide: MythicHeroesApiService, useValue: api }],
     }),
   ],
 } as Meta;

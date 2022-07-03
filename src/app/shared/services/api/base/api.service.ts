@@ -10,22 +10,17 @@ export interface ApiConfigProvider {
 
 export const API_CONFIG_TOKEN = new InjectionToken<ApiConfigProvider>('api.config');
 
-export interface IApiService<T extends BaseResource> {
+export interface IApiService<T extends { [key: string]: BaseResource }> {
   get apiUrl(): string;
-  get baseUrl(): string;
-  getCollection(params: HttpParams): Observable<SpringDataRestResponse<T>>;
-  getSingle(httpParams: HttpParams): Observable<T>;
+  getCollection<ATTR extends keyof T>(route: ATTR, params: HttpParams): Observable<SpringDataRestResponse<T[ATTR]>>;
+  getSingle<ATTR extends keyof T>(route: ATTR, httpParams: HttpParams): Observable<T[ATTR]>;
   getImageUrl(imageUrlSuffix: string): string;
   log(message: string): void;
 }
 
-export abstract class ApiService<T extends BaseResource> implements IApiService<T> {
+export abstract class ApiService<T extends { [key: string]: BaseResource }> implements IApiService<T> {
   defaultPageSize = 20;
-  constructor(
-    public http: HttpClient,
-    @Inject('route') readonly route: string,
-    @Inject(API_CONFIG_TOKEN) private config: ApiConfigProvider
-  ) {}
+  constructor(public http: HttpClient, @Inject(API_CONFIG_TOKEN) private config: ApiConfigProvider) {}
 
   public get apiUrl(): string {
     const value = this.config.apiUrl;
@@ -37,28 +32,28 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
 
   public onError: Subject<string> = new Subject();
 
-  public get baseUrl(): string {
-    return `${this.apiUrl}/${this.route}`;
-  }
-
-  _determineUrl(params: HttpParams): string {
-    let url = this.baseUrl;
+  _determineUrl(route: string | number | symbol, params: HttpParams): string {
+    const baseUrl = `${this.apiUrl}/${String(route)}`;
+    let url = baseUrl;
     if (params.has('name')) {
-      url = this.baseUrl + '/search/findBy';
+      url = baseUrl + '/search/findBy';
     }
     if (params.has('factionName')) {
-      url = this.baseUrl + '/search/findBy';
+      url = baseUrl + '/search/findBy';
     }
     if (params.has('rarityName')) {
-      url = this.baseUrl + '/search/findBy';
+      url = baseUrl + '/search/findBy';
     }
     if (params.has('typeName')) {
-      url = this.baseUrl + '/search/findBy';
+      url = baseUrl + '/search/findBy';
     }
     return url;
   }
 
-  getCollection(params: HttpParams = new HttpParams()): Observable<SpringDataRestResponse<T>> {
+  getCollection<ATTR extends keyof T>(
+    route: ATTR,
+    params: HttpParams = new HttpParams()
+  ): Observable<SpringDataRestResponse<T[ATTR]>> {
     if (!params.has('page')) {
       params = params.set('page', 0);
     }
@@ -66,9 +61,9 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
       params = params.set('size', String(this.defaultPageSize));
     }
 
-    const url = this._determineUrl(params);
-    return this.http.get<SpringDataRestResponse<T>>(url, { params }).pipe(
-      map((response: SpringDataRestResponse<T>) => {
+    const url = this._determineUrl(route, params);
+    return this.http.get<SpringDataRestResponse<T[ATTR]>>(url, { params }).pipe(
+      map((response: SpringDataRestResponse<T[ATTR]>) => {
         return response;
       }),
       catchError((error: HttpErrorResponse) => {
@@ -78,14 +73,15 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
     );
   }
 
-  getSingle(httpParams: HttpParams): Observable<T> {
+  getSingle<ATTR extends keyof T>(route: ATTR, httpParams: HttpParams): Observable<T[ATTR]> {
     console.log(httpParams.toString());
+    const baseUrl = `${this.apiUrl}/${String(route)}`;
 
     const id = httpParams.get('id');
     if (id != null && id != '') {
-      return this.http.get<T>(`${this.baseUrl}/${id}`).pipe(
-        tap(() => this.log(`retrieved single=${this.baseUrl}/${id}`)),
-        map((response: T) => {
+      return this.http.get<T[ATTR]>(`${baseUrl}/${id}`).pipe(
+        tap(() => this.log(`retrieved single=${baseUrl}/${id}`)),
+        map((response: T[ATTR]) => {
           return response;
         }),
         catchError((error: HttpErrorResponse) => {
@@ -95,8 +91,8 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
       );
     }
 
-    return this.http.get<SpringDataRestResponse<T>>(`${this.baseUrl}/search/findBy`, { params: httpParams }).pipe(
-      map((response: SpringDataRestResponse<T>) => {
+    return this.http.get<SpringDataRestResponse<T[ATTR]>>(`${baseUrl}/search/findBy`, { params: httpParams }).pipe(
+      map((response: SpringDataRestResponse<T[ATTR]>) => {
         if (response._embedded.data.length != 1) {
           throwError(
             () => new Error(`Entry length is supposed to be 1! Length was instead ${response._embedded.data.length}`)

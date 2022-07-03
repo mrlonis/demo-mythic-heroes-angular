@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Faction, HeroService, MythicHero, MythicHeroesAggressiveCache, Rarity, Type } from '../../../shared';
+import { Faction, MythicHero, MythicHeroesAggressiveCache, MythicHeroesApiService, Rarity, Type } from '../../../shared';
 
 @Component({
   standalone: true,
@@ -21,7 +21,7 @@ export class HeroDetailComponent implements OnInit {
   type: Type | undefined;
 
   constructor(
-    public heroService: HeroService,
+    public api: MythicHeroesApiService,
     private route: ActivatedRoute,
     private router: Router,
     private cache: MythicHeroesAggressiveCache
@@ -71,6 +71,6 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getImageUrl(): string {
-    return this.heroService.getImageUrl(this.hero?.imageUrl ?? '');
+    return this.api.getImageUrl(this.hero?.imageUrl ?? '');
   }
 }

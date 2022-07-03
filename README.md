@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run-script start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -12,11 +12,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run-script build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run-script test` to execute the unit tests via [Karma](https://karma-runner.github.io). Run `npm run-script test:ci` to execute the unit tests via [Karma](https://karma-runner.github.io) in a single run using puppeteer.
 
 ## Running end-to-end tests
 
@@ -26,8 +26,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## Upgrading
+## Upgrading Angular
 
 ```shell
 ng update @angular/core @angular/cli @angular/material @angular-eslint/schematics
 ```
+
+## Updating package.json packages using npm-check-updates
+
+Install [npm-check-updates](https://www.npmjs.com/package/npm-check-updates) by running `npm i -g npm-check-updates`.
+
+Then, to update all the packages in `package.json`, run `ncu -x typescript,@types/node -u` to update all the dependencies in package.json quickly.

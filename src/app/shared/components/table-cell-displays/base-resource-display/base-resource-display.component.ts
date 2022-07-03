@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { BaseResource } from '../../..//types';
-import { HeroService } from '../../../services';
+import { MythicHeroesApiService } from '../../../services';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ export class BaseResourceDisplayComponent implements OnInit {
   name = '';
   id = '';
 
-  constructor(private heroService: HeroService) {
+  constructor(private api: MythicHeroesApiService) {
     this.data = null;
   }
 
@@ -32,6 +32,6 @@ export class BaseResourceDisplayComponent implements OnInit {
   }
 
   getImageUrl(): string {
-    return this.heroService.getImageUrl(this.imageUrl);
+    return this.api.getImageUrl(this.imageUrl);
   }
 }

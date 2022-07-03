@@ -1,8 +1,8 @@
-// also exported from '@storybook/angular' if you can deal with breaking changes in 6.1
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { componentWrapperDecorator, Meta, moduleMetadata, Story } from '@storybook/angular';
-import { ApiConfigProvider, API_CONFIG_TOKEN, BaseResource } from '../../../services';
+import { ApiConfigProvider, API_CONFIG_TOKEN } from '../../../services';
+import { BaseResource } from '../../../types';
 import { BaseResourceDisplayComponent } from './base-resource-display.component';
 
 export default {
