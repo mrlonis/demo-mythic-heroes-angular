@@ -48,7 +48,7 @@ export interface CacheSlot<T extends BaseResource> {
    * It is used to count all occurrences of the resources, and to get all of it.
    * it is not used to get single occurrences, or count occurrences that have a certain property.
    */
-  service?: (params: HttpParams, page: number, pageSize: number) => Observable<SpringDataRestResponse<T>>;
+  service?: (params: HttpParams) => Observable<SpringDataRestResponse<T>>;
 
   /**
    * The getAll flag specifies whether or not the cache should attempt to cache a full list of the resource.

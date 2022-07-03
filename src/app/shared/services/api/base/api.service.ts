@@ -13,7 +13,7 @@ export const API_CONFIG_TOKEN = new InjectionToken<ApiConfigProvider>('api.confi
 export interface IApiService<T extends BaseResource> {
   get apiUrl(): string;
   get baseUrl(): string;
-  getCollection(params: HttpParams, page?: number, pageSize?: number): Observable<SpringDataRestResponse<T>>;
+  getCollection(params: HttpParams): Observable<SpringDataRestResponse<T>>;
   getSingle(httpParams: HttpParams): Observable<T>;
   getImageUrl(imageUrlSuffix: string): string;
   log(message: string): void;
@@ -41,7 +41,7 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
     return `${this.apiUrl}/${this.route}`;
   }
 
-  _springDataRestUrlFromHttpParams(params: HttpParams): string {
+  _determineUrl(params: HttpParams): string {
     let url = this.baseUrl;
     if (params.has('name')) {
       url = this.baseUrl + '/search/findBy';
@@ -58,19 +58,15 @@ export abstract class ApiService<T extends BaseResource> implements IApiService<
     return url;
   }
 
-  getCollection(
-    params: HttpParams = new HttpParams(),
-    page?: number,
-    pageSize?: number
-  ): Observable<SpringDataRestResponse<T>> {
-    if (!params.has('page') || page != null) {
-      params = params.set('page', page || 0);
+  getCollection(params: HttpParams = new HttpParams()): Observable<SpringDataRestResponse<T>> {
+    if (!params.has('page')) {
+      params = params.set('page', 0);
     }
-    if (!params.has('size') || pageSize != null) {
-      params = params.set('size', String(pageSize ?? this.defaultPageSize));
+    if (!params.has('size')) {
+      params = params.set('size', String(this.defaultPageSize));
     }
 
-    const url = this._springDataRestUrlFromHttpParams(params);
+    const url = this._determineUrl(params);
     return this.http.get<SpringDataRestResponse<T>>(url, { params }).pipe(
       map((response: SpringDataRestResponse<T>) => {
         return response;

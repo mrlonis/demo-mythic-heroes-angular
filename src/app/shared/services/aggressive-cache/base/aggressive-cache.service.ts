@@ -15,6 +15,8 @@ import { CacheSlot, CollectBySlot, GetBySlot } from './cache-slot';
  * An exception is made for organizations, because there are so many specific types of organization.
  *    For organizations, the scheme is 'organization/{{org-type}}' where org-type is the
  *    type of the object as it appears in the json.
+ *
+ * Uses typescript index-signatures: https://basarat.gitbook.io/typescript/type-system/index-signatures
  */
 export abstract class AggressiveCache<Types extends { [key: string]: BaseResource }> {
   readonly MAX_ENTRIES = 300;
@@ -232,7 +234,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
       throw 'Cannot get all of resources of this type.';
     }
 
-    cacheOccupant.all = cacheSlot.service(params, 0, this.MAX_ENTRIES).pipe(
+    cacheOccupant.all = cacheSlot.service(params.set('page', 0).set('size', this.MAX_ENTRIES)).pipe(
       mergeMap((result) => {
         return this.informCache(key, result).all ?? [];
       }),
@@ -330,7 +332,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
     }
 
     const cacheOccupant = this.enforceEntry(key);
-    cacheOccupant.count = cacheSlot.service(new HttpParams(), 0, 100).pipe(
+    cacheOccupant.count = cacheSlot.service(new HttpParams().set('page', 0).set('size', 100)).pipe(
       map((x) => x.page.totalElements ?? 0),
       shareReplay(1)
     );
@@ -378,7 +380,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
         throw 'Cannot count resources of this type.';
       }
 
-      const returnValue = cacheSlot.service(params, 0, this.MAX_ENTRIES).pipe(
+      const returnValue = cacheSlot.service(params.set('page', 0).set('size', this.MAX_ENTRIES)).pipe(
         mergeMap((result) => {
           console.log(
             'The cache was forced to get all of a resource in order to count occurrences. ' +

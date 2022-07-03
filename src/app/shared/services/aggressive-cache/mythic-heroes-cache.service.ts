@@ -24,8 +24,8 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
     super(
       {
         mythicHero: {
-          service: (params, page, pageSize) => {
-            return heroService.getCollection(params, page, pageSize);
+          service: (params) => {
+            return heroService.getCollection(params);
           },
           getAll: true,
           getBy: {
@@ -39,7 +39,7 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
           },
           collectBy: {
             directRequest: (httpParams: HttpParams) =>
-              heroService.getCollection(httpParams, 0, 300).pipe(
+              heroService.getCollection(httpParams.set('page', 0).set('size', 300)).pipe(
                 map((response) => {
                   return response._embedded.data;
                 })
@@ -47,8 +47,8 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
           },
         },
         faction: {
-          service: (index, page, params) => {
-            return factionService.getCollection(index, page, params);
+          service: (params) => {
+            return factionService.getCollection(params);
           },
           getAll: true,
           getBy: {
@@ -62,8 +62,8 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
           },
         },
         type: {
-          service: (index, page, params) => {
-            return typeService.getCollection(index, page, params);
+          service: (params) => {
+            return typeService.getCollection(params);
           },
           getAll: true,
           getBy: {
@@ -77,8 +77,8 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
           },
         },
         rarity: {
-          service: (index, page, params) => {
-            return rarityService.getCollection(index, page, params);
+          service: (params) => {
+            return rarityService.getCollection(params);
           },
           getAll: true,
           getBy: {
