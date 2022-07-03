@@ -12,7 +12,7 @@ import { animationFrameScheduler } from 'rxjs';
 import { FixedSizeTableVirtualScrollStrategy } from './fixed-size-table-virtual-scroll-strategy';
 import { TableVirtualScrollDataSource } from './table-data-source';
 import { TableItemSizeDirective } from './table-item-size.directive';
-import { TableVirtualScrollModule } from './table-virtual-scroll-module';
+import { TableVirtualScrollModule } from './table-virtual-scroll.module';
 
 @Component({
   template: `
