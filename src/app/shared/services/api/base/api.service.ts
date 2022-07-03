@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Inject, InjectionToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { BaseResource, SpringDataRestResponse } from '../../../types';
@@ -20,7 +20,7 @@ export interface IApiService<T extends { [key: string]: BaseResource }> {
 
 export abstract class ApiService<T extends { [key: string]: BaseResource }> implements IApiService<T> {
   defaultPageSize = 20;
-  constructor(public http: HttpClient, @Inject(API_CONFIG_TOKEN) private config: ApiConfigProvider) {}
+  constructor(private http: HttpClient, private config: ApiConfigProvider) {}
 
   public get apiUrl(): string {
     const value = this.config.apiUrl;

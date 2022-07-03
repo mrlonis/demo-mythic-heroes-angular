@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -45,6 +46,7 @@ import {
     MatTableModule,
     ReactiveFormsModule,
     RouterModule,
+    ScrollingModule,
   ],
 })
 export class HeroListComponent implements AfterViewInit, OnInit {
@@ -58,6 +60,8 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   rarityNameParam = '';
   typeNameParam = '';
   heroSortParam?: string;
+
+  items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

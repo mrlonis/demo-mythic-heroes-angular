@@ -20,6 +20,11 @@
   </mat-form-field>
 </form>
 <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+  <div *cdkVirtualFor="let item of items" class="example-item">{{ item }}</div>
+</cdk-virtual-scroll-viewport>
+
 <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
   <!-- Position Column -->
   <ng-container matColumnDef="hero">
@@ -56,6 +61,7 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
+
 <mat-paginator
   [disabled]="isLoadingResults"
   [pageSize]="10"
