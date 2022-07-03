@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import type { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
-import { BaseResource, HeroService } from '../../../services';
+import { BaseResource } from '../../..//types';
+import { HeroService } from '../../../services';
 
 @Component({
   standalone: true,

@@ -1,5 +1,5 @@
-import type { Observable } from 'rxjs';
-import type { BaseResource } from '../../api/interfaces';
+import { Observable } from 'rxjs';
+import { BaseResource } from '../../../types';
 
 // Used by aggressive cache internally
 export interface CacheOccupant<T extends BaseResource> {

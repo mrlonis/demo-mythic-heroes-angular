@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
-import type { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -29,6 +28,7 @@ export class HeroDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('HeroDetailComponent: ngOnInit(): Starting...');
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
       this.getProduct(param);
@@ -36,8 +36,10 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getProduct(id: string): void {
+    console.log('HeroDetailComponent: getProduct(): Starting...');
     this.cache.getBy('mythicHero', new HttpParams().set('id', id)).subscribe({
       next: (hero) => {
+        console.log('HeroDetailComponent: getProduct()');
         this.hero = hero;
         this.cache.getBy('faction', new HttpParams().set('id', hero.factionId)).subscribe({
           next: (faction) => (this.faction = faction),
@@ -52,7 +54,11 @@ export class HeroDetailComponent implements OnInit {
           error: (err) => (this.errorMessage = <string>err),
         });
       },
-      error: (err) => (this.errorMessage = <string>err),
+      error: (err) => {
+        console.log('HeroDetailComponent: getProduct(): Inside error of getBy mythicHero');
+        console.log(err);
+        this.errorMessage = <string>err;
+      },
     });
   }
 

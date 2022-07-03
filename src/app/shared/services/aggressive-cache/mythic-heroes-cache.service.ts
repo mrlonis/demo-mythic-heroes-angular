@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { FactionService, HeroService, RarityService, TypeService } from '..';
-import type { Faction, MythicHero, Rarity, Type } from '../api';
+import { Faction, MythicHero, Rarity, Type } from '../../types';
+import { FactionService, HeroService, RarityService, TypeService } from '../api';
 import { AggressiveCache, AggressiveCacheInvalidator } from './base';
 
 @Injectable({
@@ -24,8 +24,8 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
     super(
       {
         mythicHero: {
-          service: (index, page, params) => {
-            return heroService.getCollection(index, page, params);
+          service: (params, page, pageSize) => {
+            return heroService.getCollection(params, page, pageSize);
           },
           getAll: true,
           getBy: {
@@ -35,11 +35,11 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
               }
               return [new HttpParams().set('id', entity.id)];
             },
-            directRequest: (httpParams: HttpParams) => heroService.getSingle(httpParams.get('id') ?? ''),
+            directRequest: (httpParams: HttpParams) => heroService.getSingle(httpParams),
           },
           collectBy: {
             directRequest: (httpParams: HttpParams) =>
-              heroService.getCollection(0, 300, httpParams).pipe(
+              heroService.getCollection(httpParams, 0, 300).pipe(
                 map((response) => {
                   return response._embedded.data;
                 })
@@ -58,7 +58,7 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
               }
               return [new HttpParams().set('id', entity.id)];
             },
-            directRequest: (httpParams: HttpParams) => factionService.getSingle(httpParams.get('id') ?? ''),
+            directRequest: (httpParams: HttpParams) => factionService.getSingle(httpParams),
           },
         },
         type: {
@@ -73,7 +73,7 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
               }
               return [new HttpParams().set('id', entity.id)];
             },
-            directRequest: (httpParams: HttpParams) => typeService.getSingle(httpParams.get('id') ?? ''),
+            directRequest: (httpParams: HttpParams) => typeService.getSingle(httpParams),
           },
         },
         rarity: {
@@ -88,7 +88,7 @@ export class MythicHeroesAggressiveCache extends AggressiveCache<{
               }
               return [new HttpParams().set('id', entity.id)];
             },
-            directRequest: (httpParams: HttpParams) => rarityService.getSingle(httpParams.get('id') ?? ''),
+            directRequest: (httpParams: HttpParams) => rarityService.getSingle(httpParams),
           },
         },
       },

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import type { StorageServiceBase } from './storage.service';
+import { StorageServiceBase } from './storage.service';
 
 /**
  *

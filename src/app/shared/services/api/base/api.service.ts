@@ -1,10 +1,8 @@
-import type { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Inject, InjectionToken } from '@angular/core';
-import type { Observable } from 'rxjs';
-import { Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import type { BaseResource, SpringDataRestResponse } from '../interfaces';
+import { BaseResource, SpringDataRestResponse } from '../../../types';
 
 export interface ApiConfigProvider {
   apiUrl?: string;
@@ -12,7 +10,16 @@ export interface ApiConfigProvider {
 
 export const API_CONFIG_TOKEN = new InjectionToken<ApiConfigProvider>('api.config');
 
-export abstract class ApiService<T extends BaseResource> {
+export interface IApiService<T extends BaseResource> {
+  get apiUrl(): string;
+  get baseUrl(): string;
+  getCollection(params: HttpParams, page?: number, pageSize?: number): Observable<SpringDataRestResponse<T>>;
+  getSingle(httpParams: HttpParams): Observable<T>;
+  getImageUrl(imageUrlSuffix: string): string;
+  log(message: string): void;
+}
+
+export abstract class ApiService<T extends BaseResource> implements IApiService<T> {
   defaultPageSize = 20;
   constructor(
     public http: HttpClient,
@@ -34,18 +41,7 @@ export abstract class ApiService<T extends BaseResource> {
     return `${this.apiUrl}/${this.route}`;
   }
 
-  getCollection(
-    page?: number,
-    pageSize?: number,
-    params: HttpParams = new HttpParams()
-  ): Observable<SpringDataRestResponse<T>> {
-    if (!params.has('page') || page != null) {
-      params = params.set('page', page || 0);
-    }
-    if (!params.has('size') || pageSize != null) {
-      params = params.set('size', String(pageSize ?? this.defaultPageSize));
-    }
-
+  _springDataRestUrlFromHttpParams(params: HttpParams): string {
     let url = this.baseUrl;
     if (params.has('name')) {
       url = this.baseUrl + '/search/findBy';
@@ -59,7 +55,22 @@ export abstract class ApiService<T extends BaseResource> {
     if (params.has('typeName')) {
       url = this.baseUrl + '/search/findBy';
     }
+    return url;
+  }
 
+  getCollection(
+    params: HttpParams = new HttpParams(),
+    page?: number,
+    pageSize?: number
+  ): Observable<SpringDataRestResponse<T>> {
+    if (!params.has('page') || page != null) {
+      params = params.set('page', page || 0);
+    }
+    if (!params.has('size') || pageSize != null) {
+      params = params.set('size', String(pageSize ?? this.defaultPageSize));
+    }
+
+    const url = this._springDataRestUrlFromHttpParams(params);
     return this.http.get<SpringDataRestResponse<T>>(url, { params }).pipe(
       map((response: SpringDataRestResponse<T>) => {
         return response;
@@ -71,21 +82,24 @@ export abstract class ApiService<T extends BaseResource> {
     );
   }
 
-  getSingle(id: string): Observable<T> {
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.get<T>(url).pipe(
-      tap(() => this.log(`retrieved single=${url}`)),
-      map((response: T) => response),
-      catchError((error: HttpErrorResponse) => {
-        this.onError.next(error.message);
-        return throwError(() => error);
-      })
-    );
-  }
+  getSingle(httpParams: HttpParams): Observable<T> {
+    console.log(httpParams.toString());
 
-  getSingleFromHttpParams(httpParams: HttpParams): Observable<T> {
-    const url = this.baseUrl;
-    return this.http.get<SpringDataRestResponse<T>>(url, { params: httpParams }).pipe(
+    const id = httpParams.get('id');
+    if (id != null && id != '') {
+      return this.http.get<T>(`${this.baseUrl}/${id}`).pipe(
+        tap(() => this.log(`retrieved single=${this.baseUrl}/${id}`)),
+        map((response: T) => {
+          return response;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.onError.next(error.message);
+          return throwError(() => error);
+        })
+      );
+    }
+
+    return this.http.get<SpringDataRestResponse<T>>(`${this.baseUrl}/search/findBy`, { params: httpParams }).pipe(
       map((response: SpringDataRestResponse<T>) => {
         if (response._embedded.data.length != 1) {
           throwError(

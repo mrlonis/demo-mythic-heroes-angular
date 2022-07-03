@@ -1,6 +1,5 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as luminarchShadowarch from '../../../../assets/test-data/faction/Luminarch_&_Shadowarch.json';
@@ -10,7 +9,7 @@ import * as fighter from '../../../../assets/test-data/type/Fighter.json';
 import { ApiConfigProvider, API_CONFIG_TOKEN, Faction, MythicHero, Rarity, Type } from '../../../shared';
 import { HeroDetailComponent } from './hero-detail.component';
 
-const testApiUrl = 'http://fake-url/api';
+const testApiUrl = 'http://fake-url.coms/api';
 const testMythicHero: MythicHero = <MythicHero>lucifer;
 const testFaction: Faction = <Faction>luminarchShadowarch;
 const testRarity: Rarity = <Rarity>urRarity;

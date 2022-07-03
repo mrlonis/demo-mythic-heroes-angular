@@ -1,10 +1,10 @@
 import { HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, shareReplay, tap } from 'rxjs/operators';
-import type { BaseResource, SpringDataRestResponse } from '../../api/interfaces';
-import type { AggressiveCacheInvalidator } from './aggressive-cache-invalidator.service';
-import type { CacheOccupant } from './cache-occupant';
-import type { CacheSlot, CollectBySlot, GetBySlot } from './cache-slot';
+import { BaseResource, SpringDataRestResponse } from '../../../types';
+import { AggressiveCacheInvalidator } from './aggressive-cache-invalidator.service';
+import { CacheOccupant } from './cache-occupant';
+import { CacheSlot, CollectBySlot, GetBySlot } from './cache-slot';
 
 /**
  * Types is a dictionary of all the types of resources the cache should manage.
@@ -232,7 +232,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
       throw 'Cannot get all of resources of this type.';
     }
 
-    cacheOccupant.all = cacheSlot.service(0, this.MAX_ENTRIES, params).pipe(
+    cacheOccupant.all = cacheSlot.service(params, 0, this.MAX_ENTRIES).pipe(
       mergeMap((result) => {
         return this.informCache(key, result).all ?? [];
       }),
@@ -330,7 +330,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
     }
 
     const cacheOccupant = this.enforceEntry(key);
-    cacheOccupant.count = cacheSlot.service(0, 100, new HttpParams()).pipe(
+    cacheOccupant.count = cacheSlot.service(new HttpParams(), 0, 100).pipe(
       map((x) => x.page.totalElements ?? 0),
       shareReplay(1)
     );
@@ -378,7 +378,7 @@ export abstract class AggressiveCache<Types extends { [key: string]: BaseResourc
         throw 'Cannot count resources of this type.';
       }
 
-      const returnValue = cacheSlot.service(0, this.MAX_ENTRIES, params).pipe(
+      const returnValue = cacheSlot.service(params, 0, this.MAX_ENTRIES).pipe(
         mergeMap((result) => {
           console.log(
             'The cache was forced to get all of a resource in order to count occurrences. ' +
