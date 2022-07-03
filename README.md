@@ -37,3 +37,9 @@ ng update @angular/core @angular/cli @angular/material @angular-eslint/schematic
 Install [npm-check-updates](https://www.npmjs.com/package/npm-check-updates) by running `npm i -g npm-check-updates`.
 
 Then, to update all the packages in `package.json`, run `ncu -x typescript,@types/node -u` to update all the dependencies in package.json quickly.
+
+## Useful Links
+
+Useful links for learning about features employed throughout this project:
+
+- [Typescript Index Signatures](https://basarat.gitbook.io/typescript/type-system/index-signatures)
