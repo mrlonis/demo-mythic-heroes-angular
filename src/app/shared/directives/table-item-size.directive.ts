@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @angular-eslint/no-input-rename */
-/* eslint-disable @angular-eslint/directive-selector */
 import { VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
 import { AfterContentInit, ContentChild, Directive, forwardRef, Input, NgZone, OnChanges, OnDestroy } from '@angular/core';
@@ -36,6 +30,7 @@ const defaults = {
 };
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'cdk-virtual-scroll-viewport[tvsItemSize]',
   providers: [
     {
@@ -48,7 +43,7 @@ const defaults = {
 export class TableItemSizeDirective implements OnChanges, AfterContentInit, OnDestroy {
   private destroyed$ = new Subject<void>();
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('tvsItemSize')
   rowHeight: string | number = defaults.rowHeight;
 
@@ -94,7 +89,8 @@ export class TableItemSizeDirective implements OnChanges, AfterContentInit, OnDe
   }
 
   ngAfterContentInit() {
-    const switchDataSourceOrigin = this.table['_switchDataSource'];
+    const switchDataSourceOrigin = this.table['_switchDataSource'] as (arg: any) => void;
+    console.log('switchDataSourceOrigin', switchDataSourceOrigin);
     this.table['_switchDataSource'] = (dataSource: any) => {
       switchDataSourceOrigin.call(this.table, dataSource);
       this.connectDataSource(dataSource);
@@ -130,7 +126,15 @@ export class TableItemSizeDirective implements OnChanges, AfterContentInit, OnDe
           tap((data) => (this.scrollStrategy.dataLength = data.length)),
           switchMap((data) =>
             this.scrollStrategy.renderedRangeStream.pipe(
-              map(({ start, end }) => (typeof start !== 'number' || typeof end !== 'number' ? data : data.slice(start, end)))
+              map(({ start, end }) => {
+                if (typeof start !== 'number' || typeof end !== 'number') {
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                  return data;
+                } else {
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                  return data.slice(start, end);
+                }
+              })
             )
           )
         )

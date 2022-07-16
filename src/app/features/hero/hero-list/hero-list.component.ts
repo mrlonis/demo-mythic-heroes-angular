@@ -1,4 +1,3 @@
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -12,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
 import {
@@ -22,6 +21,8 @@ import {
   MythicHero,
   MythicHeroesAggressiveCache,
   Rarity,
+  TableVirtualScrollDataSource,
+  TableVirtualScrollModule,
   Type,
 } from '../../../shared';
 
@@ -46,12 +47,12 @@ import {
     MatTableModule,
     ReactiveFormsModule,
     RouterModule,
-    ScrollingModule,
+    TableVirtualScrollModule,
   ],
 })
 export class HeroListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['hero', 'faction', 'rarity', 'type'];
-  dataSource = new MatTableDataSource<MythicHeroesTableDataSource>([]);
+  dataSource = new TableVirtualScrollDataSource<MythicHeroesTableDataSource>([]);
   data: MythicHeroesTableDataSource[] = [];
   isLoadingResults = true;
 
@@ -142,7 +143,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
       rarities: this.cache.getAll('rarity'),
       types: this.cache.getAll('type'),
     }).subscribe((x) => {
-      this.dataSource = new MatTableDataSource<MythicHeroesTableDataSource>(this.createDataSource(x));
+      this.dataSource = new TableVirtualScrollDataSource<MythicHeroesTableDataSource>(this.createDataSource(x));
       this.dataSource.paginator = this.paginator;
       this.isLoadingResults = false;
     });
