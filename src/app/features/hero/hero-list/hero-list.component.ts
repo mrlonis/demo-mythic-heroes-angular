@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -65,6 +65,7 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('scrollViewport') scrollViewport!: ElementRef<HTMLDivElement>;
 
   heroNameFilterControl = new FormControl('');
   filteredOptions: Observable<MythicHero[]> | Observable<never[]> = of([]);
@@ -83,7 +84,14 @@ export class HeroListComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    console.log('HeroListComponent: ngAfterViewInit(): Starting...');
     this.dataSource.paginator = this.paginator;
+    const div = this.scrollViewport.nativeElement;
+    console.log(this.scrollViewport);
+    console.log('div.clientHeight: ', div.clientHeight);
+    console.log('div.clientWidth: ', div.clientWidth);
+    console.log('div.scrollHeight: ', div.scrollHeight);
+    console.log('div.scrollWidth: ', div.scrollWidth);
   }
 
   createDataSource(forkJoinResult: {

@@ -89,8 +89,8 @@ export class TableItemSizeDirective implements OnChanges, AfterContentInit, OnDe
   }
 
   ngAfterContentInit() {
+    console.log('[tvsItemSize] ngAfterContentInit: this.table =', this.table);
     const switchDataSourceOrigin = this.table['_switchDataSource'] as (arg: any) => void;
-    console.log('switchDataSourceOrigin', switchDataSourceOrigin);
     this.table['_switchDataSource'] = (dataSource: any) => {
       switchDataSourceOrigin.call(this.table, dataSource);
       this.connectDataSource(dataSource);
